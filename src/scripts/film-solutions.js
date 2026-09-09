@@ -764,7 +764,7 @@ export function initFilmSolutions() {
                 <span>Xem chi tiết</span>
               </button>
 
-              <!-- Nhận báo giá button (Dark black/slate like mockup) -->
+              <!-- Nhận ưu đãi button (Dark black/slate like mockup) -->
               <a href="#quote-form-section"
                 class="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#0f172a] hover:bg-slate-800 text-white text-xs xl:text-[13px] font-bold transition-colors shadow-2xs whitespace-nowrap">
                 <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
@@ -773,7 +773,7 @@ export function initFilmSolutions() {
                   <line x1="8" y1="2" x2="8" y2="6"/>
                   <line x1="3" y1="10" x2="21" y2="10"/>
                 </svg>
-                <span>Nhận báo giá</span>
+                <span>Nhận ưu đãi</span>
                 <span class="text-xs">→</span>
               </a>
             </div>
