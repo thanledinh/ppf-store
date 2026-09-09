@@ -33,6 +33,13 @@ export function initFilmRollCanvas() {
   let isPlaying = false;
   let hasPlayed = false;
   let isLocked = false;
+  let cachedSectionTop = 0;
+  let cachedSectionHeight = 0;
+
+  function updateSectionMetrics() {
+    cachedSectionTop = section.offsetTop;
+    cachedSectionHeight = section.offsetHeight;
+  }
 
   // 1. Khởi tạo kích thước canvas theo tỷ lệ màn hình (Retina / 4K DPR - Tránh forced reflow)
   function resizeCanvas() {
@@ -45,6 +52,7 @@ export function initFilmRollCanvas() {
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
+    updateSectionMetrics();
     renderFrame(currentFrameIndex);
   }
 
@@ -213,16 +221,18 @@ export function initFilmRollCanvas() {
 
   // 7. Lắng nghe cuộn chuột tự nhiên (Khi di chuyển xuống tới Phần 2 -> Khóa lăn -> Trải film ra)
   function checkScrollTrigger() {
-    const rect = section.getBoundingClientRect();
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    const rectTop = cachedSectionTop - scrollY;
+    const rectBottom = rectTop + cachedSectionHeight;
     const viewportHeight = window.innerHeight;
 
     // Khi người dùng cuộn xuống tới trọn vẹn Phần 2 (chạm đỉnh màn hình)
-    if (!isPlaying && !hasPlayed && rect.top <= 20 && rect.bottom >= viewportHeight * 0.5) {
+    if (!isPlaying && !hasPlayed && rectTop <= 20 && rectBottom >= viewportHeight * 0.5) {
       playRollAnimation();
     }
 
     // Nếu người dùng cuộn ngược về phần xe (Section 1), reset để sẵn sàng phát lại nếu lướt xuống
-    if (hasPlayed && !isPlaying && window.scrollY < section.offsetTop - 200) {
+    if (hasPlayed && !isPlaying && scrollY < cachedSectionTop - 200) {
       hasPlayed = false;
       renderFrame(0);
       hideFilmUIOverlay();
@@ -232,6 +242,7 @@ export function initFilmRollCanvas() {
   window.addEventListener('scroll', checkScrollTrigger, { passive: true });
   window.addEventListener('resize', resizeCanvas, { passive: true });
 
-  // Kiểm tra ngay khi tải trang
+  // Khởi tạo kích thước ban đầu và kiểm tra vị trí ngay khi tải trang
+  resizeCanvas();
   checkScrollTrigger();
 }

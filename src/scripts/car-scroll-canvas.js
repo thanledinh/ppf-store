@@ -53,7 +53,6 @@ export function initCarScrollCanvas() {
       if (!activeFrames[0]) {
         loadInitialFrame(isMobileMode);
       }
-      preloadRemainingFrames(isMobileMode);
     }
 
     canvas.width = Math.round(width * dpr);
@@ -61,8 +60,19 @@ export function initCarScrollCanvas() {
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
+    // Cập nhật khoảng cuộn tối đa (chỉ tính lại khi resize, tránh forced reflow lúc cuộn)
+    recalculateDimensions();
+
     // Render lại frame hiện tại khi đổi kích thước màn hình
     renderFrame(currentFrameIndex);
+  }
+
+  // Bộ nhớ đệm kích thước để triệt tiêu 100% Forced Reflow trong vòng lặp cuộn
+  let cachedMaxScroll = 1;
+  function recalculateDimensions() {
+    const trackHeight = track.offsetHeight;
+    const viewportHeight = window.innerHeight;
+    cachedMaxScroll = Math.max(trackHeight - viewportHeight, 1);
   }
 
   // 2. Hàm vẽ frame lên canvas với thuật toán COVER (Full 100vh và 100vw)
@@ -249,16 +259,12 @@ export function initCarScrollCanvas() {
   }
 
   function updateScrollAnimation() {
-    const trackRect = track.getBoundingClientRect();
-    const trackHeight = track.offsetHeight;
-    const viewportHeight = window.innerHeight;
-    const maxScroll = trackHeight - viewportHeight;
-
-    if (maxScroll <= 0) return;
+    if (cachedMaxScroll <= 0) return;
 
     // Tiến trình từ 0.0 (đầu hero) đến 1.0 (cuối hero)
-    const scrolled = -trackRect.top;
-    const progress = Math.min(Math.max(scrolled / maxScroll, 0), 1);
+    // #hero-scroll-track bắt đầu ở đỉnh trang (offsetTop = 0), đọc trực tiếp scrollY để triệt tiêu 100% Forced Reflow
+    const scrolled = window.scrollY || window.pageYOffset || 0;
+    const progress = Math.min(Math.max(scrolled / cachedMaxScroll, 0), 1);
 
     // Tính toán index frame tương ứng
     const targetIndex = Math.min(totalFrames - 1, Math.floor(progress * totalFrames));
@@ -277,9 +283,11 @@ export function initCarScrollCanvas() {
       const fadeEnd = 0.95;
 
       if (progress <= fadeStart) {
-        heroOverlay.style.opacity = '1';
-        heroOverlay.style.transform = 'translateY(0px)';
-        heroOverlay.style.pointerEvents = 'auto';
+        if (heroOverlay.style.opacity !== '1') {
+          heroOverlay.style.opacity = '1';
+          heroOverlay.style.transform = 'translateY(0px)';
+          heroOverlay.style.pointerEvents = 'auto';
+        }
       } else {
         const fadeRatio = Math.min((progress - fadeStart) / (fadeEnd - fadeStart), 1);
         heroOverlay.style.opacity = String(Math.max(0, 1 - fadeRatio));
@@ -290,7 +298,10 @@ export function initCarScrollCanvas() {
 
     // Ẩn chỉ báo cuộn chuột khi đã cuộn
     if (scrollIndicator) {
-      scrollIndicator.style.opacity = progress > 0.05 ? '0' : '1';
+      const targetOpacity = progress > 0.05 ? '0' : '1';
+      if (scrollIndicator.style.opacity !== targetOpacity) {
+        scrollIndicator.style.opacity = targetOpacity;
+      }
     }
   }
 

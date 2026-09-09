@@ -683,7 +683,7 @@ export function initFilmSolutions() {
         <div class="package-card group bg-white rounded-xl lg:rounded-2xl border border-slate-200/90 hover:border-red-300 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden relative shadow-xs">
           <!-- 1. Header image with Brand overlay -->
           <div class="h-36 sm:h-40 xl:h-44 w-full bg-slate-950 relative overflow-hidden flex items-end p-4 select-none shrink-0">
-            <img src="${pkg.badgeImg}" alt="${pkg.brandDisplay} ${pkg.brandSub}" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+            <img src="${pkg.badgeImg}" alt="${pkg.brandDisplay} ${pkg.brandSub}" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" width="450" height="250" />
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent pointer-events-none"></div>
 
             <!-- Title & subtitle overlay (bottom left) -->
