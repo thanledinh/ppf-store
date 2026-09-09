@@ -1,0 +1,23 @@
+﻿User-agent: *
+Allow: /
+
+# Mở cửa cho các AI Bot phục vụ tìm kiếm thế hệ mới (GEO Standard)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://storedetailing.vn/dan-phim-cach-nhiet/sitemap.xml

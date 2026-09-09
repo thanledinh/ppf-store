@@ -1,0 +1,284 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Google Sans Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html,
+body {
+  font-family: "Google Sans Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* ==========================================================================
+   STORE DETAILING - DESIGN SYSTEM & THEME TOKENS
+   ========================================================================== */
+
+@layer base {
+  :root {
+    --color-bg-primary: #0b0f19;
+    --color-bg-surface: #111827;
+    --color-bg-card: #1f2937;
+    --color-accent-gold: #f59e0b;
+    --color-accent-amber: #d97706;
+    --color-accent-blue: #2563eb;
+    --color-text-primary: #f9fafb;
+    --color-text-muted: #9ca3af;
+    --color-border: #374151;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: "Google Sans Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-stretch: 100%;
+    font-optical-sizing: auto;
+    font-style: normal;
+    background-color: #ffffff;
+    color: #0f172a;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
+
+/* Glassmorphism & luxury card utilities */
+.glass-panel {
+  background: rgba(17, 24, 39, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border-glow {
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.15);
+}
+
+/* ==========================================================================
+   SMART HEADER: Tự động ẩn khi lăn xuống, hiện khi lăn lên hoặc di chuột lên đỉnh
+   ========================================================================== */
+#site-header {
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, background-color 0.3s ease;
+  will-change: transform, opacity;
+}
+
+#site-header.header-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#site-header.header-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   HERO SCROLL-DRIVEN CANVAS SYSTEM (FULL 100vh)
+   ========================================================================== */
+.hero-scroll-track {
+  position: relative;
+  width: 100%;
+  height: 160vh;
+  background-color: #ffffff;
+}
+
+@media (max-width: 767px) {
+  .hero-scroll-track {
+    height: 135vh;
+  }
+}
+
+.hero-sticky-stage {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  /* Ảnh nền tĩnh 0ms phòng khi JS đang tải */
+  background-image: url('/hero-first-frame.webp');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 767px) {
+  .hero-sticky-stage {
+    background-image: url('/hero-first-frame-mobile.webp');
+    background-size: 100% auto;
+    background-position: center bottom;
+  }
+}
+
+#hero-car-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+}
+
+.hero-overlay-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+  will-change: opacity, transform;
+}
+
+/* Chỉ báo cuộn chuột sang trọng */
+.scroll-indicator-mouse {
+  width: 24px;
+  height: 40px;
+  border-radius: 14px;
+  border: 2px solid rgba(15, 23, 42, 0.5);
+  position: relative;
+}
+
+.scroll-indicator-dot {
+  width: 4px;
+  height: 8px;
+  background-color: #0f172a;
+  border-radius: 2px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scrollDotAnim 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes scrollDotAnim {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 0;
+    transform: translate(-50%, 14px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 14px);
+  }
+}
+
+/* ==========================================================================
+   PHẦN 2: GIẢI PHÁP & SẢN PHẨM PHIM CÁCH NHIỆT (3M, GLOBAL, CERAMAX)
+   ========================================================================== */
+#film-roll-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F5F7F9;
+  overflow: visible;
+}
+
+/* ==========================================================================
+   MOBILE HERO RESPONSIVE THEO CHIỀU CAO
+   - Chiều cao <= 740px: Giữ nguyên 100% bố cục ban đầu
+   - Chiều cao 741px - 1000px (iPhone 14/15/16 Pro Max, màn hình cao):
+     Dãn đều khoảng cách và tăng kích thước chữ, icon, nút để bố cục cân đối
+   ========================================================================== */
+@media (max-width: 767px) and (min-height: 741px) {
+
+  /* Tăng khoảng cách từ đỉnh header trên màn hình cao */
+  #hero-overlay-content {
+    padding-top: clamp(6.5rem, 11vh, 7.75rem) !important;
+  }
+
+  /* Eyebrow tag */
+  .hero-eyebrow {
+    font-size: 12.5px !important;
+    letter-spacing: 0.25em !important;
+    margin-bottom: 0.95rem !important;
+    /* ~15px */
+  }
+
+  /* Tiêu đề H1: Tăng kích thước & dãn khoảng cách */
+  .hero-h1 {
+    font-size: clamp(42px, 5vh, 47px) !important;
+    line-height: 1.12 !important;
+    gap: 7px !important;
+    margin-bottom: 1.45rem !important;
+    /* ~23px */
+  }
+
+  /* Dòng thương hiệu & giá */
+  .hero-brand-price {
+    font-size: 15.5px !important;
+    margin-bottom: 1.35rem !important;
+    /* ~22px */
+  }
+
+  /* 3 tính năng: Tăng kích thước chữ & khoảng cách */
+  .hero-features {
+    font-size: 14px !important;
+    gap: 1rem !important;
+    /* 16px */
+    margin-bottom: 1.5rem !important;
+    /* 24px */
+  }
+
+  .hero-features svg {
+    width: 1.2rem !important;
+    /* ~19px */
+    height: 1.2rem !important;
+  }
+
+  /* Khối bảo hành & ưu đãi */
+  .hero-promo-box {
+    gap: 1rem !important;
+    margin-bottom: 1.95rem !important;
+    /* ~31px */
+  }
+
+  .hero-promo-box svg {
+    width: 2.15rem !important;
+    /* ~34px */
+    height: 2.15rem !important;
+  }
+
+  .hero-promo-title {
+    font-size: 16px !important;
+  }
+
+  .hero-promo-desc {
+    font-size: 13.5px !important;
+    margin-top: 0.25rem !important;
+  }
+
+  /* Nút Xem bảng giá */
+  .hero-cta-btn {
+    max-width: 295px !important;
+    padding-top: 0.8rem !important;
+    /* ~13px */
+    padding-bottom: 0.8rem !important;
+    font-size: 15.5px !important;
+  }
+}
