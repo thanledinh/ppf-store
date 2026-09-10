@@ -381,6 +381,11 @@ body {
   background-color: #ffffff !important;
 }
 
+#hero-overlay-content {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
 #hero-overlay-content,
 #hero-overlay-content * {
   color-scheme: only light !important;
@@ -443,21 +448,20 @@ body {
 
 /* Chống đảo màu chữ trong Hero khi mobile hoặc HTML kích hoạt Dark Mode */
 html.dark #hero-scroll-track,
-html.dark #hero-sticky-stage,
+html.dark #hero-sticky-stage {
+  color-scheme: only light !important;
+}
+
 html.dark #hero-overlay-content {
-  background-color: #ffffff !important;
+  background: transparent !important;
+  background-color: transparent !important;
   color-scheme: only light !important;
 }
 
 @media (prefers-color-scheme: dark) {
-  .hero-scroll-track,
-  .hero-sticky-stage {
-    background-color: #ffffff !important;
-    color-scheme: only light !important;
-  }
-
-  #hero-overlay-content,
-  #hero-overlay-content * {
+  #hero-overlay-content {
+    background: transparent !important;
+    background-color: transparent !important;
     color-scheme: only light !important;
   }
 
