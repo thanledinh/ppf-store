@@ -15,6 +15,8 @@ body {
 
 @layer base {
   :root {
+    color-scheme: only light !important;
+    supported-color-schemes: light !important;
     --color-bg-primary: #0b0f19;
     --color-bg-surface: #111827;
     --color-bg-card: #1f2937;
@@ -27,6 +29,7 @@ body {
   }
 
   html {
+    color-scheme: only light !important;
     scroll-behavior: smooth;
     font-family: "Google Sans Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-stretch: 100%;
@@ -39,6 +42,7 @@ body {
   }
 
   body {
+    color-scheme: only light !important;
     min-height: 100vh;
     overflow-x: hidden;
   }
@@ -364,5 +368,124 @@ body {
 
 .animate-gallery-fade-in {
   animation: galleryFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   KHÓA NỀN TRẮNG & MÀU CHỮ CHO HERO CANVAS & HEADER (CHỐNG LỖI DARK MODE MOBILE)
+   ========================================================================== */
+#site-header,
+#mobile-menu-drawer,
+.hero-scroll-track,
+.hero-sticky-stage,
+#hero-overlay-content {
+  color-scheme: only light !important;
+  supported-color-schemes: light !important;
+}
+
+.hero-scroll-track,
+.hero-sticky-stage {
+  background-color: #ffffff !important;
+}
+
+#hero-overlay-content,
+#hero-overlay-content * {
+  color-scheme: only light !important;
+}
+
+/* Khóa màu chữ tuyệt đối trong Hero trên nền trắng canvas */
+#hero-overlay-content .hero-eyebrow {
+  color: #ba1b23 !important;
+  -webkit-text-fill-color: #ba1b23 !important;
+}
+
+#hero-overlay-content .hero-h1,
+#hero-overlay-content .hero-h1 span {
+  color: #020617 !important;
+  -webkit-text-fill-color: #020617 !important;
+}
+
+#hero-overlay-content .hero-brand-price {
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+}
+
+#hero-overlay-content .hero-brand-price span {
+  color: #ba1b23 !important;
+  -webkit-text-fill-color: #ba1b23 !important;
+}
+
+#hero-overlay-content .hero-features,
+#hero-overlay-content .hero-features span,
+#hero-overlay-content .hero-features div {
+  color: #1e293b !important;
+  -webkit-text-fill-color: #1e293b !important;
+}
+
+#hero-overlay-content .hero-features svg {
+  color: #ba1b23 !important;
+  stroke: #ba1b23 !important;
+}
+
+#hero-overlay-content .hero-promo-box .hero-promo-title {
+  color: #ba1b23 !important;
+  -webkit-text-fill-color: #ba1b23 !important;
+}
+
+#hero-overlay-content .hero-promo-box .hero-promo-desc {
+  color: #1e293b !important;
+  -webkit-text-fill-color: #1e293b !important;
+}
+
+#hero-overlay-content .hero-promo-box svg {
+  color: #ba1b23 !important;
+  stroke: #ba1b23 !important;
+}
+
+#hero-overlay-content .hero-cta-btn {
+  background-color: #ba1b23 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Chống đảo màu khi mobile bật chế độ tối hệ thống (@media prefers-color-scheme: dark) */
+@media (prefers-color-scheme: dark) {
+  #site-header,
+  #mobile-menu-drawer,
+  .hero-scroll-track,
+  .hero-sticky-stage {
+    background-color: #ffffff !important;
+    color-scheme: only light !important;
+  }
+
+  #hero-overlay-content,
+  #hero-overlay-content * {
+    color-scheme: only light !important;
+  }
+
+  #hero-overlay-content .hero-h1 span {
+    color: #020617 !important;
+    -webkit-text-fill-color: #020617 !important;
+  }
+
+  #hero-overlay-content .hero-eyebrow {
+    color: #ba1b23 !important;
+    -webkit-text-fill-color: #ba1b23 !important;
+  }
+
+  #hero-overlay-content .hero-brand-price {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+  }
+
+  #hero-overlay-content .hero-features span,
+  #hero-overlay-content .hero-features div {
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
+  }
+
+  #hero-overlay-content .hero-promo-desc {
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
+  }
 }
 
