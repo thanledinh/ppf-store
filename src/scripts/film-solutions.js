@@ -1,6 +1,6 @@
 /**
  * Store Detailing - Section 2: Film Solutions & Brand Packages
- * Quản lý tương tác chọn thương hiệu (3M, Global, CeraMAX) và hiển thị các gói phim chuẩn thiết kế mockup
+ * Quản lý tương tác chọn thương hiệu (3M, Global) và hiển thị các gói phim chuẩn thiết kế mockup
  */
 
 export const SOLUTIONS_DATA = {
@@ -222,93 +222,6 @@ export const SOLUTIONS_DATA = {
         }
       }
     ]
-  },
-  'ceramax': {
-    name: 'CeraMAX',
-    tag: 'CERAMAX',
-    warranty: '15 năm',
-    heading: 'CÔNG NGHỆ<br>TẠO NÊN<br>SỰ KHÁC BIỆT',
-    desc: 'Công nghệ Men gốm Nano Ceramic và Phún xạ kim loại đa tầng chân không tối ưu chi phí và hiệu năng vượt trội.',
-    packages: [
-      {
-        id: 'ceramax-diamond',
-        brand: 'ceramax',
-        brandDisplay: 'CERAMAX',
-        brandSub: 'DIAMOND',
-        subtitle: 'Men gốm phủ TiN chống oxy hóa, cản hồng ngoại 99%.',
-        badgeImg: '/card-glass-bg-2.webp',
-        tag: 'PHỔ BIẾN',
-        tagClass: 'bg-[#e0f2fe] text-[#0284c7] border border-[#bae6fd]',
-        hasCrown: true,
-        specs: [
-          { label: 'TSER 65%', sub: 'Giảm nhiệt hiệu quả', icon: 'sun' },
-          { label: 'IRR 99.1%', sub: 'Cản tia hồng ngoại vượt trội', icon: 'heat' },
-          { label: 'UVR 99.9%', sub: 'Chống tia UV', icon: 'shield' },
-          { label: 'VLT 60%', sub: 'Kính trong mát mắt', icon: 'eye' }
-        ],
-        prices: {
-          sedan: '9.500.000đ',
-          suv5: '9.500.000đ',
-          suv7: '11.300.000đ',
-          pickup: '9.500.000đ',
-          ev: '9.500.000đ'
-        },
-        suitableFor: 'Xe gia đình cao cấp, cần độ bền màu và chống oxy hóa.',
-        fullSpecs: {
-          brand: 'CeraMAX (Hàn Quốc)',
-          series: 'CeraMAX Diamond Series',
-          tech: 'Men gốm Nano Ceramic tráng phủ Titanium Nitride (TiN)',
-          thickness: '2.0 mil (0.05 mm)',
-          irr: '99.1% (kỷ lục cản nhiệt hồng ngoại vượt trội)',
-          tser: '65% – 72%',
-          uvr: '99.9%',
-          vlt: '07.4% – 59.7% (CeraMAX 50 kính lái VLT 59.7%)',
-          vlr: '6.0% – 8.6% (hạn chế tối đa bóng gương taplo lên kính)',
-          hardCoat: 'Chuẩn 2H chống trầy xước',
-          signal: '100% không kim loại, đường truyền sóng thông suốt',
-          warranty: 'Bảo hành điện tử chính hãng 15 năm'
-        }
-      },
-      {
-        id: 'ceramax-sputter',
-        brand: 'ceramax',
-        brandDisplay: 'CERAMAX',
-        brandSub: 'MULTILAYER SPUTTER',
-        subtitle: 'Phún xạ đa tầng chân không, phản xạ nhiệt tức thì.',
-        badgeImg: '/card-glass-bg-3.webp',
-        tag: 'CAO CẤP',
-        tagClass: 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]',
-        hasCrown: true,
-        specs: [
-          { label: 'TSER 72%', sub: 'Tổng cản nhiệt kỷ lục', icon: 'sun' },
-          { label: 'IRR 97.1%', sub: 'Phản xạ bức xạ nhiệt', icon: 'heat' },
-          { label: 'UVR 99.9%', sub: 'Chống tia UV tối đa', icon: 'shield' },
-          { label: 'VLT 50%', sub: 'Tầm nhìn thể thao dịu mắt', icon: 'eye' }
-        ],
-        prices: {
-          sedan: '15.500.000đ',
-          suv5: '15.500.000đ',
-          suv7: '17.900.000đ',
-          pickup: '15.500.000đ',
-          ev: '15.500.000đ'
-        },
-        suitableFor: 'Xe sang & SUV cỡ lớn, đòi hỏi công nghệ phản xạ đỉnh cao.',
-        fullSpecs: {
-          brand: 'CeraMAX (Hàn Quốc)',
-          series: 'CeraMAX Multilayer Sputter Series',
-          tech: 'Phún xạ kim loại đa tầng trong chân không (Multi-layer Sputtering)',
-          thickness: '2.0 mil',
-          irr: '97.1% (cản bức xạ nhiệt trực tiếp)',
-          tser: '68% – 75%',
-          uvr: '99.9%',
-          energyReflect: '24.3% phản xạ trực tiếp ra ngoài môi trường',
-          vlt: '12.2% – 50.6% (Sputter 50 kính lái)',
-          vlr: '6.0% – 7.5%',
-          hardCoat: 'Chuẩn 2H+ chống xước',
-          warranty: 'Bảo hành điện tử chính hãng 15 năm'
-        }
-      }
-    ]
   }
 };
 
@@ -352,26 +265,6 @@ export const POSITION_PRICING_DATA = [
     suonTruoc: '1.100.000đ',
     suonSau: '1.100.000đ',
     kinhLung: '1.300.000đ'
-  },
-  {
-    code: 'Ceramax Diamond',
-    brand: 'ceramax',
-    tag: 'TIẾT KIỆM',
-    tagClass: 'bg-orange-100 text-orange-800 border border-orange-200',
-    kinhLai: '3.300.000đ',
-    suonTruoc: '2.000.000đ',
-    suonSau: '2.000.000đ',
-    kinhLung: '2.200.000đ'
-  },
-  {
-    code: 'Ceramax Sputter',
-    brand: 'ceramax',
-    tag: 'ĐẲNG CẤP',
-    tagClass: 'bg-purple-100 text-purple-800 border border-purple-200',
-    kinhLai: '5.800.000đ',
-    suonTruoc: '2.900.000đ',
-    suonSau: '2.900.000đ',
-    kinhLung: '3.900.000đ'
   }
 ];
 
@@ -714,9 +607,6 @@ export function initFilmSolutions() {
         if (titleSpan) {
           if (bKey === '3m') {
             titleSpan.className = "brand-tab-title text-xl lg:text-2xl font-black text-[#ba1b23] leading-none";
-          } else if (bKey === 'ceramax') {
-            titleSpan.className = "brand-tab-title text-xl lg:text-2xl font-black text-slate-900 leading-none";
-            titleSpan.innerHTML = 'Cera<span class="text-[#ea580c]">MAX</span>';
           } else {
             titleSpan.className = "brand-tab-title text-xl lg:text-2xl font-black text-slate-900 leading-none";
           }
@@ -727,9 +617,6 @@ export function initFilmSolutions() {
         if (titleSpan) {
           if (bKey === '3m') {
             titleSpan.className = "brand-tab-title text-xl lg:text-2xl font-black text-slate-600 leading-none";
-          } else if (bKey === 'ceramax') {
-            titleSpan.className = "brand-tab-title text-xl lg:text-2xl font-black text-slate-600 leading-none";
-            titleSpan.innerHTML = 'Cera<span class="text-slate-500">MAX</span>';
           } else {
             titleSpan.className = "brand-tab-title text-xl lg:text-2xl font-black text-slate-600 leading-none";
           }

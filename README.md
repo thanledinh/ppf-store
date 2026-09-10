@@ -57,8 +57,8 @@ pnpm run build
 
 ## 📋 Checklist Các Khối Giao Diện Sẵn Sàng Để Code Tiếp:
 1. [ ] **Header / Navigation Bar**: Logo Store Detailing, danh mục dịch vụ, nút gọi nhanh Hotline `0378 78 88 98`.
-2. [ ] **Hero Section**: H1 chuẩn SEO, cam kết chính hãng (3M, Global, CeraMAX), cản nhiệt 99%, bảo hành 10 năm - trọn đời.
-3. [ ] **Brand Trust Badges**: Huy hiệu đại lý ủy quyền 3M, Global Window Films, CeraMAX.
+2. [ ] **Hero Section**: H1 chuẩn SEO, cam kết chính hãng (3M, Global), cản nhiệt 99%, bảo hành 10 năm - trọn đời.
+3. [ ] **Brand Trust Badges**: Huy hiệu đại lý ủy quyền 3M, Global Window Films.
 4. [ ] **4 Lợi Ích Cốt Lõi**: TSER 70%, IRR 99%, chống tia UV, bảo vệ nội thất, giảm chói, chống văng kính.
 5. [ ] **Bảng Giá Phim Cách Nhiệt**: Bảng so sánh Sedan / SUV 5 chỗ / SUV 7 chỗ cho từng thương hiệu và bảng dán kính lẻ.
 6. [ ] **Quy Trình 11 Bước**: Thi công chuẩn phòng máy lạnh kín bụi với sương dập bụi mịn.

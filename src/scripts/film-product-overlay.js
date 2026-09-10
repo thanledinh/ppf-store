@@ -3,7 +3,7 @@
  * 
  * Quản lý tương tác:
  * - Đồng bộ xuất hiện mượt mà khi cuộn phim trải rộng.
- * - Rê chuột (hover) hoặc bấm (click) vào 3 thẻ thương hiệu (3M, GLOBAL, CeraMAX)
+ * - Rê chuột (hover) hoặc bấm (click) vào 2 thẻ thương hiệu (3M, GLOBAL)
  *   để chuyển đổi thông tin, bảng giá và công nghệ hiển thị trên mặt kính phim.
  */
 
@@ -69,36 +69,6 @@ export const BRANDS_DATA = {
       { icon: 'shield', text: 'Chống UV 99.9% ·' },
       { icon: 'eye', text: 'Quang học sắc nét' },
     ]
-  },
-  'ceramax': {
-    id: 'ceramax',
-    name: 'CeraMAX',
-    slogan: 'Công nghệ men gốm Nano Ceramic & Sputter vượt trội',
-    warranty: 'Bảo hành chính hãng 15 năm',
-    badge: 'Ceramic & Sputter',
-    origin: 'HIỆU SUẤT VƯỢT TRỘI',
-    accentColor: '#ea580c',
-    logoHtml: `
-      <span class="text-2xl md:text-3xl font-black text-white tracking-tight select-none">
-        Cera<span class="text-[#ea580c]">MAX</span>
-      </span>
-    `,
-    cardLogoHtml: `
-      <span class="text-lg font-black text-slate-900 tracking-tight select-none">
-        Cera<span class="text-[#ea580c]">MAX</span>
-      </span>
-    `,
-    packages: [
-      { name: 'CeraMAX Diamond', price: '9.500.000đ' },
-      { name: 'CeraMAX Eco Ceramic', price: '5.500.000đ' },
-      { name: 'CeraMAX Platinum', price: '10.500.000đ' },
-    ],
-    features: [
-      { icon: 'layer', text: 'Nano Ceramic & Sputter' },
-      { icon: 'sun', text: 'Cản nhiệt 95% ·' },
-      { icon: 'shield', text: 'Cắt tia cực tím 99% ·' },
-      { icon: 'eye', text: 'Không cản sóng GPS' },
-    ]
   }
 };
 
@@ -135,7 +105,7 @@ export function initFilmProductOverlay() {
 
   if (!overlay || !brandContent) return;
 
-  const brandKeys = ['3m', 'global', 'ceramax'];
+  const brandKeys = ['3m', 'global'];
   let currentBrandIndex = 0;
 
   // Render nội dung thương hiệu lên mặt phim
