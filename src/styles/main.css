@@ -15,8 +15,6 @@ body {
 
 @layer base {
   :root {
-    color-scheme: only light !important;
-    supported-color-schemes: light !important;
     --color-bg-primary: #0b0f19;
     --color-bg-surface: #111827;
     --color-bg-card: #1f2937;
@@ -29,7 +27,6 @@ body {
   }
 
   html {
-    color-scheme: only light !important;
     scroll-behavior: smooth;
     font-family: "Google Sans Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-stretch: 100%;
@@ -42,7 +39,6 @@ body {
   }
 
   body {
-    color-scheme: only light !important;
     min-height: 100vh;
     overflow-x: hidden;
   }
@@ -371,10 +367,8 @@ body {
 }
 
 /* ==========================================================================
-   KHÓA NỀN TRẮNG & MÀU CHỮ CHO HERO CANVAS & HEADER (CHỐNG LỖI DARK MODE MOBILE)
+   KHÓA NỀN TRẮNG & MÀU CHỮ CHỈ RIÊNG CHO HERO CANVAS SECTION (INDEX.HTML L419-L541)
    ========================================================================== */
-#site-header,
-#mobile-menu-drawer,
 .hero-scroll-track,
 .hero-sticky-stage,
 #hero-overlay-content {
@@ -447,10 +441,15 @@ body {
   -webkit-text-fill-color: #ffffff !important;
 }
 
-/* Chống đảo màu khi mobile bật chế độ tối hệ thống (@media prefers-color-scheme: dark) */
+/* Chống đảo màu chữ trong Hero khi mobile hoặc HTML kích hoạt Dark Mode */
+html.dark #hero-scroll-track,
+html.dark #hero-sticky-stage,
+html.dark #hero-overlay-content {
+  background-color: #ffffff !important;
+  color-scheme: only light !important;
+}
+
 @media (prefers-color-scheme: dark) {
-  #site-header,
-  #mobile-menu-drawer,
   .hero-scroll-track,
   .hero-sticky-stage {
     background-color: #ffffff !important;
