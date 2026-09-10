@@ -63,6 +63,14 @@ body {
 }
 
 /* ==========================================================================
+   KOL VIDEO SECTION
+   ========================================================================== */
+.kol-video-card.is-playing .kol-poster-layer {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ==========================================================================
    SMART HEADER: Tự động ẩn khi lăn xuống, hiện khi lăn lên hoặc di chuột lên đỉnh
    ========================================================================== */
 #site-header {
@@ -88,13 +96,13 @@ body {
 .hero-scroll-track {
   position: relative;
   width: 100%;
-  height: 160vh;
+  height: 320vh;
   background-color: #ffffff;
 }
 
 @media (max-width: 767px) {
   .hero-scroll-track {
-    height: 135vh;
+    height: 280vh;
   }
 }
 
@@ -201,84 +209,158 @@ body {
 
 /* ==========================================================================
    MOBILE HERO RESPONSIVE THEO CHIỀU CAO
-   - Chiều cao <= 740px: Giữ nguyên 100% bố cục ban đầu
-   - Chiều cao 741px - 1000px (iPhone 14/15/16 Pro Max, màn hình cao):
-     Dãn đều khoảng cách và tăng kích thước chữ, icon, nút để bố cục cân đối
+   - Chiều cao <= 840px (bao gồm mốc 741px - 840px):
+     Chữ xếp gần lại với nhau, khoảng cách gọn gàng, kéo toàn bộ lên cao để không chạm nóc xe
+   - Chiều cao > 840px (iPhone 14/15/16 Pro Max, màn hình siêu cao):
+     Dãn nhẹ hài hòa, vẫn giữ khoảng cách an toàn với xe
    ========================================================================== */
-@media (max-width: 767px) and (min-height: 741px) {
+@media (max-width: 767px) and (max-height: 840px) {
 
-  /* Tăng khoảng cách từ đỉnh header trên màn hình cao */
+  /* Kéo toàn bộ nội dung dịch lên cao, ngay dưới smart header */
   #hero-overlay-content {
-    padding-top: clamp(6.5rem, 11vh, 7.75rem) !important;
+    padding-top: clamp(4.75rem, 9.5vh, 5.25rem) !important;
   }
 
-  /* Eyebrow tag */
+  /* Eyebrow tag: Nhỏ gọn, xếp sát gần tiêu đề */
   .hero-eyebrow {
-    font-size: 12.5px !important;
-    letter-spacing: 0.25em !important;
-    margin-bottom: 0.95rem !important;
-    /* ~15px */
+    font-size: 11px !important;
+    letter-spacing: 0.22em !important;
+    margin-bottom: 0.45rem !important; /* ~7px */
   }
 
-  /* Tiêu đề H1: Tăng kích thước & dãn khoảng cách */
+  /* Tiêu đề H1: Kích thước vừa vặn, 2 dòng chữ xếp gần nhau, khoảng cách dưới nhỏ */
   .hero-h1 {
-    font-size: clamp(42px, 5vh, 47px) !important;
-    line-height: 1.12 !important;
-    gap: 7px !important;
-    margin-bottom: 1.45rem !important;
-    /* ~23px */
+    font-size: clamp(34px, 4.3vh, 39px) !important;
+    line-height: 1.08 !important;
+    gap: 4px !important;
+    margin-bottom: 0.65rem !important; /* ~10px */
   }
 
-  /* Dòng thương hiệu & giá */
+  /* Dòng thương hiệu & giá: Xếp sát dòng tính năng */
   .hero-brand-price {
-    font-size: 15.5px !important;
-    margin-bottom: 1.35rem !important;
-    /* ~22px */
+    font-size: 13.5px !important;
+    margin-bottom: 0.65rem !important; /* ~10px */
   }
 
-  /* 3 tính năng: Tăng kích thước chữ & khoảng cách */
+  /* 3 tính năng: Icon nhỏ gọn, khoảng cách xếp gần */
   .hero-features {
-    font-size: 14px !important;
-    gap: 1rem !important;
-    /* 16px */
-    margin-bottom: 1.5rem !important;
-    /* 24px */
+    font-size: 11.5px !important;
+    gap: 0.65rem !important;
+    margin-bottom: 0.75rem !important; /* ~12px */
   }
 
   .hero-features svg {
-    width: 1.2rem !important;
-    /* ~19px */
-    height: 1.2rem !important;
+    width: 1rem !important;
+    height: 1rem !important;
   }
 
-  /* Khối bảo hành & ưu đãi */
+  /* Khối bảo hành & ưu đãi: Gọn gàng, xếp gần nút bấm */
   .hero-promo-box {
-    gap: 1rem !important;
-    margin-bottom: 1.95rem !important;
-    /* ~31px */
+    gap: 0.75rem !important;
+    margin-bottom: 0.95rem !important; /* ~15px */
   }
 
   .hero-promo-box svg {
-    width: 2.15rem !important;
-    /* ~34px */
-    height: 2.15rem !important;
+    width: 1.7rem !important;
+    height: 1.7rem !important;
   }
 
   .hero-promo-title {
-    font-size: 16px !important;
+    font-size: 13px !important;
   }
 
   .hero-promo-desc {
-    font-size: 13.5px !important;
-    margin-top: 0.25rem !important;
+    font-size: 11px !important;
+    margin-top: 0.15rem !important;
   }
 
-  /* Nút Xem bảng giá */
+  /* Nút CTA Nhận báo giá: Gọn gàng, không bị đẩy xuống nóc xe */
   .hero-cta-btn {
-    max-width: 295px !important;
-    padding-top: 0.8rem !important;
-    /* ~13px */
-    padding-bottom: 0.8rem !important;
-    font-size: 15.5px !important;
+    max-width: 260px !important;
+    padding-top: 0.65rem !important;
+    padding-bottom: 0.65rem !important;
+    font-size: 13.5px !important;
   }
 }
+
+/* ==========================================================================
+   MOBILE HERO RESPONSIVE - CHIỀU CAO TRÊN 840PX (iPhone Pro Max, màn hình cao)
+   ========================================================================== */
+@media (max-width: 767px) and (min-height: 841px) {
+  #hero-overlay-content {
+    padding-top: clamp(5.5rem, 8.5vh, 6.5rem) !important;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px !important;
+    margin-bottom: 0.65rem !important;
+  }
+
+  .hero-h1 {
+    font-size: clamp(38px, 4.6vh, 43px) !important;
+    line-height: 1.1 !important;
+    gap: 5px !important;
+    margin-bottom: 0.95rem !important;
+  }
+
+  .hero-brand-price {
+    font-size: 14.5px !important;
+    margin-bottom: 0.95rem !important;
+  }
+
+  .hero-features {
+    font-size: 12.5px !important;
+    gap: 0.85rem !important;
+    margin-bottom: 1.15rem !important;
+  }
+
+  .hero-features svg {
+    width: 1.1rem !important;
+    height: 1.1rem !important;
+  }
+
+  .hero-promo-box {
+    gap: 0.85rem !important;
+    margin-bottom: 1.35rem !important;
+  }
+
+  .hero-promo-box svg {
+    width: 1.9rem !important;
+    height: 1.9rem !important;
+  }
+
+  .hero-promo-title {
+    font-size: 14.5px !important;
+  }
+
+  .hero-promo-desc {
+    font-size: 12px !important;
+    margin-top: 0.2rem !important;
+  }
+
+  .hero-cta-btn {
+    max-width: 275px !important;
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+    font-size: 14.5px !important;
+  }
+}
+
+/* ==========================================================================
+   GALLERY MOBILE REVEAL ANIMATION
+   ========================================================================== */
+@keyframes galleryFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-gallery-fade-in {
+  animation: galleryFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+

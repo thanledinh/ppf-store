@@ -1,9 +1,10 @@
 /**
  * Floating Action Speed-Dial Contact Button
  * - Nút tin nhắn tổng hợp chứa 3 kênh: Messenger, Zalo, Gọi điện
- * - Bấm vào thì 3 nút nhảy vọt ra, nút chính biến thành dấu X
- * - Khi lướt cuộn trang hoặc bấm ra ngoài: Tự động đóng gọn lại để tối ưu diện tích
- * - Trên mobile: Hiển thị tooltip 'Bấm vào để liên hệ' khi vừa vào trang và tự biến mất sau 4.5s
+ * - Tương tác thông minh:
+ *   + Khi người dùng lướt cuộn trang: Tự động thu gọn 3 nút vào trong để giải phóng tầm nhìn
+ *   + Khi người dùng dừng lại (ngừng lướt 450ms): 3 nút tự động nhảy bung ra để kích thích liên hệ
+ *   + Người dùng bấm vào nút chính: Có thể chủ động đóng/mở tùy ý
  */
 export function initFloatingContact() {
   const contactFab = document.getElementById('contact-main-fab');
@@ -16,6 +17,7 @@ export function initFloatingContact() {
   if (!contactFab || !dialItems) return;
 
   let isDialOpen = false;
+  let scrollStopTimer = null;
 
   function toggleDial(open) {
     isDialOpen = typeof open === 'boolean' ? open : !isDialOpen;
@@ -49,11 +51,18 @@ export function initFloatingContact() {
     toggleDial();
   });
 
-  // Tự động đóng khi lướt cuộn giao diện để tối ưu diện tích
+  // Tự động thu gọn khi đang lướt cuộn và tự động nhảy bung ra khi dừng lướt
   window.addEventListener('scroll', () => {
+    // 1. Khi đang lướt cuộn: Thu gọn 3 nút vào trong ngay lập tức
     if (isDialOpen) {
       toggleDial(false);
     }
+
+    // 2. Hẹn giờ: Khi người dùng dừng lại (450ms không cuộn thêm) -> Tự động bung 3 nút ra
+    clearTimeout(scrollStopTimer);
+    scrollStopTimer = setTimeout(() => {
+      toggleDial(true);
+    }, 450);
   }, { passive: true });
 
   // Tự động đóng khi click ra bên ngoài
@@ -62,6 +71,13 @@ export function initFloatingContact() {
       toggleDial(false);
     }
   });
+
+  // Khi vừa vào trang: Tự động bung ra sau 1.8 giây nếu người dùng đứng yên
+  setTimeout(() => {
+    if (!isDialOpen && window.scrollY < 100) {
+      toggleDial(true);
+    }
+  }, 1800);
 
   // Khi vào trên mobile: Báo lên "Bấm vào để liên hệ" rồi vài giây sau tự mờ dần biến mất
   if (greetingBubble && window.innerWidth < 768) {

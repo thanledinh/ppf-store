@@ -277,22 +277,13 @@ export function initCarScrollCanvas() {
     }
 
     // Hiệu ứng mờ nhẹ lớp chữ Overlay khi xe cuộn gần hết hành trình để chuyển tiếp sang Section 2
-    // Giữ chữ rõ nét trong suốt 70% hành trình đầu để xe xoay 360 độ và chữ hiển thị đồng bộ, không bao giờ để khoảng trắng rỗng
+    // Bỏ hiệu ứng fade out để chữ luôn hiển thị cho đến khi bị section tiếp theo đè lên,
+    // giúp người dùng không cảm thấy có "khoảng trắng" dở dang.
     if (heroOverlay) {
-      const fadeStart = 0.70;
-      const fadeEnd = 0.95;
-
-      if (progress <= fadeStart) {
-        if (heroOverlay.style.opacity !== '1') {
-          heroOverlay.style.opacity = '1';
-          heroOverlay.style.transform = 'translateY(0px)';
-          heroOverlay.style.pointerEvents = 'auto';
-        }
-      } else {
-        const fadeRatio = Math.min((progress - fadeStart) / (fadeEnd - fadeStart), 1);
-        heroOverlay.style.opacity = String(Math.max(0, 1 - fadeRatio));
-        heroOverlay.style.transform = `translateY(-${fadeRatio * 30}px)`;
-        heroOverlay.style.pointerEvents = fadeRatio > 0.6 ? 'none' : 'auto';
+      if (heroOverlay.style.opacity !== '1') {
+        heroOverlay.style.opacity = '1';
+        heroOverlay.style.transform = 'translateY(0px)';
+        heroOverlay.style.pointerEvents = 'auto';
       }
     }
 

@@ -17,8 +17,8 @@ export const SOLUTIONS_DATA = {
         brandDisplay: '3M',
         brandSub: 'CERAMIC',
         subtitle: 'Ổn định. Bền bỉ. Hiệu quả.',
-        badgeImg: '/card-glass-bg-1.webp',
-        tag: 'CÂN BẰNG',
+        badgeImg: '/sanpham/vf5/42.webp',
+        tag: 'TIẾT KIỆM',
         tagClass: 'bg-white text-slate-800 border border-slate-200/90',
         hasCrown: false,
         specs: [
@@ -57,8 +57,8 @@ export const SOLUTIONS_DATA = {
         brandDisplay: '3M',
         brandSub: 'ECO PREMIUM',
         subtitle: 'Rõ nét hơn. Thoải mái hơn.',
-        badgeImg: '/card-glass-bg-2.webp',
-        tag: 'HIỆU SUẤT CAO',
+        badgeImg: '/sanpham/hondacity/20260623-DSC06042.webp',
+        tag: 'PHỔ BIẾN',
         tagClass: 'bg-[#e0f2fe] text-[#0284c7] border border-[#bae6fd]',
         hasCrown: true,
         specs: [
@@ -97,8 +97,8 @@ export const SOLUTIONS_DATA = {
         brandDisplay: '3M',
         brandSub: 'CRYSTALLINE BLK',
         subtitle: 'Đỉnh cao hiệu suất. Tầm nhìn vượt trội.',
-        badgeImg: '/card-glass-bg-3.webp',
-        tag: 'CAO CẤP NHẤT',
+        badgeImg: '/sanpham/BMW320i/DSC04297-Edit.webp',
+        tag: 'CAO CẤP',
         tagClass: 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]',
         hasCrown: true,
         specs: [
@@ -149,7 +149,7 @@ export const SOLUTIONS_DATA = {
         brandSub: 'QDP CERAMIC',
         subtitle: 'Màng đôi 2-Ply chống tĩnh điện, trong sạch.',
         badgeImg: '/card-glass-bg-1.webp',
-        tag: 'CÂN BẰNG',
+        tag: 'TIẾT KIỆM',
         tagClass: 'bg-white text-slate-800 border border-slate-200/90',
         hasCrown: false,
         specs: [
@@ -160,10 +160,10 @@ export const SOLUTIONS_DATA = {
         ],
         prices: {
           sedan: '6.300.000đ',
-          suv5: '7.000.000đ',
-          suv7: '7.800.000đ',
-          pickup: '7.000.000đ',
-          ev: '6.800.000đ'
+          suv5: '6.300.000đ',
+          suv7: '7.200.000đ',
+          pickup: '6.300.000đ',
+          ev: '6.300.000đ'
         },
         suitableFor: 'Xe chạy phố, dịch vụ hoặc gia đình trẻ tiết kiệm chi phí.',
         fullSpecs: {
@@ -183,51 +183,13 @@ export const SOLUTIONS_DATA = {
         }
       },
       {
-        id: 'global-ceramic-plus',
-        brand: 'global',
-        brandDisplay: 'GLOBAL',
-        brandSub: 'CERAMIC PLUS',
-        subtitle: 'Độ trong suốt quang học cao, cách nhiệt vượt trội.',
-        badgeImg: '/card-glass-bg-2.webp',
-        tag: 'HIỆU SUẤT CAO',
-        tagClass: 'bg-[#e0f2fe] text-[#0284c7] border border-[#bae6fd]',
-        hasCrown: true,
-        specs: [
-          { label: 'TSER 62%', sub: 'Cản nhiệt hiệu quả', icon: 'sun' },
-          { label: 'IRR 93%', sub: 'Chặn tia hồng ngoại', icon: 'heat' },
-          { label: 'UVR 99%', sub: 'Chống tia UV', icon: 'shield' },
-          { label: 'VLT 70%', sub: 'Tầm nhìn trong trẻo', icon: 'eye' }
-        ],
-        prices: {
-          sedan: '9.800.000đ',
-          suv5: '10.800.000đ',
-          suv7: '11.800.000đ',
-          pickup: '10.800.000đ',
-          ev: '10.500.000đ'
-        },
-        suitableFor: 'Xe cá nhân, gia đình ưu tiên độ rõ nét và tầm nhìn đêm.',
-        fullSpecs: {
-          brand: 'Global Window Films (Mỹ)',
-          series: 'Global Ceramic Plus Series',
-          tech: 'Nano Ceramic quang học thế hệ mới',
-          thickness: '2.0 mil',
-          irr: '93%',
-          tser: '55% – 62%',
-          uvr: '99%',
-          vlt: '20% – 70%',
-          hardCoat: 'Chuẩn 2H chống xước',
-          signal: '100% xuyên sóng điện tử',
-          warranty: 'Bảo hành điện tử trọn đời (Lifetime Warranty)'
-        }
-      },
-      {
         id: 'global-supreme',
         brand: 'global',
         brandDisplay: 'GLOBAL',
         brandSub: 'SUPREME IR',
         subtitle: 'Liên kết chéo chống co mép, cản bức xạ sâu.',
         badgeImg: '/card-glass-bg-3.webp',
-        tag: 'CAO CẤP NHẤT',
+        tag: 'CAO CẤP',
         tagClass: 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]',
         hasCrown: true,
         specs: [
@@ -238,10 +200,10 @@ export const SOLUTIONS_DATA = {
         ],
         prices: {
           sedan: '13.200.000đ',
-          suv5: '14.500.000đ',
-          suv7: '15.800.000đ',
-          pickup: '14.500.000đ',
-          ev: '14.000.000đ'
+          suv5: '13.200.000đ',
+          suv7: '15.500.000đ',
+          pickup: '13.200.000đ',
+          ev: '13.200.000đ'
         },
         suitableFor: 'Xe di chuyển đường dài thường xuyên, cần độ mát sâu.',
         fullSpecs: {
@@ -269,50 +231,13 @@ export const SOLUTIONS_DATA = {
     desc: 'Công nghệ Men gốm Nano Ceramic và Phún xạ kim loại đa tầng chân không tối ưu chi phí và hiệu năng vượt trội.',
     packages: [
       {
-        id: 'ceramax-eco',
-        brand: 'ceramax',
-        brandDisplay: 'CERAMAX',
-        brandSub: 'ECO PLUS',
-        subtitle: 'Men gốm tiêu chuẩn, bền màu và cách nhiệt êm ái.',
-        badgeImg: '/card-glass-bg-1.webp',
-        tag: 'TIẾT KIỆM',
-        tagClass: 'bg-white text-slate-800 border border-slate-200/90',
-        hasCrown: false,
-        specs: [
-          { label: 'TSER 56%', sub: 'Giảm nhiệt êm ái', icon: 'sun' },
-          { label: 'IRR 92%', sub: 'Cản tia hồng ngoại', icon: 'heat' },
-          { label: 'UVR 99%', sub: 'Chống tia UV', icon: 'shield' },
-          { label: 'VLT 65%', sub: 'Dịu mắt dễ lái', icon: 'eye' }
-        ],
-        prices: {
-          sedan: '7.200.000đ',
-          suv5: '8.000.000đ',
-          suv7: '8.800.000đ',
-          pickup: '8.000.000đ',
-          ev: '7.800.000đ'
-        },
-        suitableFor: 'Khách hàng mong muốn chi phí hợp lý với độ bền cao.',
-        fullSpecs: {
-          brand: 'CeraMAX (Hàn Quốc)',
-          series: 'CeraMAX Eco Plus Series',
-          tech: 'Men gốm Nano Ceramic',
-          thickness: '2.0 mil',
-          irr: '92%',
-          tser: '50% – 58%',
-          uvr: '99%',
-          vlt: '15% – 65%',
-          hardCoat: 'Chuẩn 2H chống xước',
-          warranty: 'Bảo hành điện tử chính hãng 10 năm'
-        }
-      },
-      {
         id: 'ceramax-diamond',
         brand: 'ceramax',
         brandDisplay: 'CERAMAX',
         brandSub: 'DIAMOND',
         subtitle: 'Men gốm phủ TiN chống oxy hóa, cản hồng ngoại 99%.',
         badgeImg: '/card-glass-bg-2.webp',
-        tag: 'HIỆU SUẤT CAO',
+        tag: 'PHỔ BIẾN',
         tagClass: 'bg-[#e0f2fe] text-[#0284c7] border border-[#bae6fd]',
         hasCrown: true,
         specs: [
@@ -323,10 +248,10 @@ export const SOLUTIONS_DATA = {
         ],
         prices: {
           sedan: '9.500.000đ',
-          suv5: '10.500.000đ',
-          suv7: '11.500.000đ',
-          pickup: '10.500.000đ',
-          ev: '10.000.000đ'
+          suv5: '9.500.000đ',
+          suv7: '11.300.000đ',
+          pickup: '9.500.000đ',
+          ev: '9.500.000đ'
         },
         suitableFor: 'Xe gia đình cao cấp, cần độ bền màu và chống oxy hóa.',
         fullSpecs: {
@@ -348,10 +273,10 @@ export const SOLUTIONS_DATA = {
         id: 'ceramax-sputter',
         brand: 'ceramax',
         brandDisplay: 'CERAMAX',
-        brandSub: 'SPUTTER',
+        brandSub: 'MULTILAYER SPUTTER',
         subtitle: 'Phún xạ đa tầng chân không, phản xạ nhiệt tức thì.',
         badgeImg: '/card-glass-bg-3.webp',
-        tag: 'CAO CẤP NHẤT',
+        tag: 'CAO CẤP',
         tagClass: 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]',
         hasCrown: true,
         specs: [
@@ -362,10 +287,10 @@ export const SOLUTIONS_DATA = {
         ],
         prices: {
           sedan: '15.500.000đ',
-          suv5: '17.000.000đ',
-          suv7: '18.500.000đ',
-          pickup: '17.000.000đ',
-          ev: '16.500.000đ'
+          suv5: '15.500.000đ',
+          suv7: '17.900.000đ',
+          pickup: '15.500.000đ',
+          ev: '15.500.000đ'
         },
         suitableFor: 'Xe sang & SUV cỡ lớn, đòi hỏi công nghệ phản xạ đỉnh cao.',
         fullSpecs: {
@@ -391,7 +316,7 @@ export const POSITION_PRICING_DATA = [
   {
     code: '3M Crystalline BLK',
     brand: '3m',
-    tag: 'CAO CẤP NHẤT',
+    tag: 'CAO CẤP',
     tagClass: 'bg-amber-100 text-amber-800 border border-amber-200',
     kinhLai: '5.700.000đ',
     suonTruoc: '2.600.000đ',
@@ -401,7 +326,7 @@ export const POSITION_PRICING_DATA = [
   {
     code: '3M Ceramic IR',
     brand: '3m',
-    tag: 'CÂN BẰNG',
+    tag: 'TIẾT KIỆM',
     tagClass: 'bg-slate-100 text-slate-700 border border-slate-200',
     kinhLai: '3.300.000đ',
     suonTruoc: '1.800.000đ',
@@ -411,7 +336,7 @@ export const POSITION_PRICING_DATA = [
   {
     code: 'Global Supreme',
     brand: 'global',
-    tag: 'HIỆU SUẤT CAO',
+    tag: 'PHỔ BIẾN',
     tagClass: 'bg-blue-100 text-blue-800 border border-blue-200',
     kinhLai: '4.900.000đ',
     suonTruoc: '2.700.000đ',
@@ -431,7 +356,7 @@ export const POSITION_PRICING_DATA = [
   {
     code: 'Ceramax Diamond',
     brand: 'ceramax',
-    tag: 'CÂN BẰNG',
+    tag: 'TIẾT KIỆM',
     tagClass: 'bg-orange-100 text-orange-800 border border-orange-200',
     kinhLai: '3.300.000đ',
     suonTruoc: '2.000.000đ',
@@ -716,22 +641,7 @@ export function initFilmSolutions() {
             ` : ''}
           </div>
 
-          <!-- 2. 4 Specs row (clean typography, no bulky box border) -->
-          <div class="px-3.5 py-3 border-b border-slate-100">
-            <div class="grid grid-cols-4 gap-1 text-center">
-              ${pkg.specs.map(s => {
-                const parts = s.label.split(' ');
-                const name = parts[0];
-                const val = parts[1] || '';
-                return `
-                <div class="flex flex-col items-center">
-                  <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">${name}</span>
-                  <span class="text-sm xl:text-base font-black text-slate-900 leading-tight mt-1">${val}</span>
-                </div>
-                `;
-              }).join('')}
-            </div>
-          </div>
+          
 
           <!-- 3. Price & Suitable For row -->
           <div class="px-4 py-3 flex items-center justify-between gap-3 border-b border-slate-100/60">
@@ -756,18 +666,18 @@ export function initFilmSolutions() {
           </div>
 
           <!-- 4. 2 Action buttons at bottom -->
-          <div class="px-4 py-3.5 pt-2.5 mt-auto">
-            <div class="grid grid-cols-2 gap-2.5">
+          <div class="px-3 sm:px-4 py-3.5 pt-2.5 mt-auto">
+            <div class="grid grid-cols-2 gap-2 sm:gap-2.5">
               <!-- Xem chi tiết button -->
               <button type="button" data-open-spec="${pkg.id}" aria-label="Xem chi tiết ${pkg.brandDisplay} ${pkg.brandSub}"
-                class="inline-flex items-center justify-center py-2.5 px-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 text-xs xl:text-[13px] font-bold transition-colors cursor-pointer shadow-2xs">
+                class="inline-flex items-center justify-center py-2.5 px-2 sm:px-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 text-[11px] sm:text-xs xl:text-[13px] font-bold transition-colors cursor-pointer shadow-2xs whitespace-nowrap">
                 <span>Xem chi tiết</span>
               </button>
 
               <!-- Nhận ưu đãi button (Dark black/slate like mockup) -->
               <a href="#quote-form-section"
-                class="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#0f172a] hover:bg-slate-800 text-white text-xs xl:text-[13px] font-bold transition-colors shadow-2xs whitespace-nowrap">
-                <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                class="inline-flex items-center justify-center gap-1 sm:gap-1.5 py-2.5 px-2 sm:px-3 rounded-xl bg-[#0f172a] hover:bg-slate-800 text-white text-[11px] sm:text-xs xl:text-[13px] font-bold transition-colors shadow-2xs whitespace-nowrap">
+                <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-2 shrink-0 hidden min-[400px]:inline-block md:hidden xl:inline-block" viewBox="0 0 24 24">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                   <line x1="16" y1="2" x2="16" y2="6"/>
                   <line x1="8" y1="2" x2="8" y2="6"/>
@@ -834,9 +744,9 @@ export function initFilmSolutions() {
       const isActive = (cType === activeCar);
 
       if (isActive) {
-        pill.className = "car-type-pill active-car flex items-center gap-1.5 px-3 py-1.5 lg:py-2 rounded-xl bg-[#0f172a] text-white text-xs lg:text-[13px] font-bold shadow-xs whitespace-nowrap transition-colors cursor-pointer";
+        pill.className = "car-type-pill active-car flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-[#0f172a] text-white text-[11px] sm:text-xs font-bold shadow-xs whitespace-nowrap transition-colors cursor-pointer";
       } else {
-        pill.className = "car-type-pill flex items-center gap-1.5 px-3 py-1.5 lg:py-2 rounded-xl bg-white border border-slate-200/90 text-slate-700 hover:text-slate-900 hover:bg-slate-50 text-xs lg:text-[13px] font-semibold whitespace-nowrap transition-colors cursor-pointer";
+        pill.className = "car-type-pill flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-white border border-slate-200/90 text-slate-700 hover:text-slate-900 hover:bg-slate-50 text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer";
       }
     });
   }

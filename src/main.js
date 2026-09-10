@@ -4,6 +4,8 @@ import { initSmartHeader } from './scripts/smart-header.js';
 import { initFloatingContact } from './scripts/floating-contact.js';
 import { initQuoteForm } from './scripts/quote-form.js';
 import { initCountdownTimer } from './scripts/countdown-timer.js';
+import { initFaqAccordion } from './scripts/faq-accordion.js';
+import { initKolVideo } from './scripts/kol-video.js';
 
 /**
  * Store Detailing - Landing Page Dán Phim Cách Nhiệt Ô Tô
@@ -21,10 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Các module phía dưới màn hình (Below-the-fold): Khởi động khi trình duyệt rảnh rỗi
   // Tránh chiếm dụng luồng chính (Main Thread) lúc vừa tải trang
   const initDeferredModules = () => {
-    initFilmSolutions();
-    initQuoteForm();
-    initCountdownTimer();
-    initFloatingContact();
+    try { initFilmSolutions(); } catch(e) { console.error(e); }
+    try { initQuoteForm(); } catch(e) { console.error(e); }
+    try { initCountdownTimer(); } catch(e) { console.error(e); }
+    try { initFloatingContact(); } catch(e) { console.error(e); }
+    try { initFaqAccordion(); } catch(e) { console.error(e); }
+    try { initKolVideo(); } catch(e) { console.error(e); }
+    import('./scripts/gallery.js').catch(e => console.error(e));
   };
 
   if ('requestIdleCallback' in window) {
