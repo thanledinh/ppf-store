@@ -67,12 +67,13 @@ export function initCarScrollCanvas() {
     renderFrame(currentFrameIndex);
   }
 
-  // Bộ nhớ đệm kích thước để triệt tiêu 100% Forced Reflow trong vòng lặp cuộn
+  // Bộ nhớ đệm khoảng cuộn để triệt tiêu 100% Forced Reflow trong vòng lặp cuộn
   let cachedMaxScroll = 1;
   function recalculateDimensions() {
-    const trackHeight = track.offsetHeight;
-    const viewportHeight = window.innerHeight;
-    cachedMaxScroll = Math.max(trackHeight - viewportHeight, 1);
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 800;
+    // Đồng bộ 96 frame xe chạy trong khoảng cuộn khi hero trượt ra khỏi màn hình (~85% viewportHeight)
+    // Giúp xe di chuyển mượt mà đồng thời với việc trang web cuộn xuống section tiếp theo
+    cachedMaxScroll = Math.max(Math.round(viewportHeight * 0.85), 350);
   }
 
   // 2. Hàm vẽ frame lên canvas với thuật toán COVER (Full 100vh và 100vw)
@@ -165,7 +166,7 @@ export function initCarScrollCanvas() {
   loadInitialFrame(isMobileMode);
 
   // 4. Tải trước các frame tiếp theo theo thứ tự ưu tiên (Progressive Batch Loading không nghẽn mạng)
-  const MAX_CONCURRENT_DOWNLOADS = 4;
+  const MAX_CONCURRENT_DOWNLOADS = 6;
   let activeDownloads = 0;
   const loadQueue = [];
   const queuedIndices = new Set();
@@ -210,22 +211,22 @@ export function initCarScrollCanvas() {
     }
   }
 
-  // Khởi đầu: Nạp 12 frame đầu tiên, sau đó tiếp tục nạp toàn bộ 96 frame trong nền khi rảnh rỗi
+  // Khởi đầu: Nạp 20 frame đầu tiên, sau đó tiếp tục nạp toàn bộ 96 frame trong nền khi rảnh rỗi
   function preloadAllFrames() {
-    // Đợt 1: 12 frame đầu để phản hồi ngay khi cuộn
-    for (let i = 1; i <= 12; i++) {
+    // Đợt 1: 20 frame đầu để phản hồi ngay khi cuộn
+    for (let i = 1; i <= 20; i++) {
       queueFrame(i, isMobileMode, false);
     }
     // Đợt 2: Nạp các frame còn lại để hoàn tất toàn bộ 96 frames trong bộ nhớ đệm
     const scheduleRemaining = () => {
-      for (let i = 13; i < totalFrames; i++) {
+      for (let i = 21; i < totalFrames; i++) {
         queueFrame(i, isMobileMode, false);
       }
     };
     if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(scheduleRemaining, { timeout: 3000 });
+      window.requestIdleCallback(scheduleRemaining, { timeout: 1500 });
     } else {
-      setTimeout(scheduleRemaining, 800);
+      setTimeout(scheduleRemaining, 500);
     }
   }
 
@@ -261,9 +262,20 @@ export function initCarScrollCanvas() {
   function updateScrollAnimation() {
     if (cachedMaxScroll <= 0) return;
 
-    // Tiến trình từ 0.0 (đầu hero) đến 1.0 (cuối hero)
     // #hero-scroll-track bắt đầu ở đỉnh trang (offsetTop = 0), đọc trực tiếp scrollY để triệt tiêu 100% Forced Reflow
     const scrolled = window.scrollY || window.pageYOffset || 0;
+
+    // Khi hero đã trượt hẳn ra ngoài màn hình (vượt quá 1.5 lần cachedMaxScroll),
+    // dừng render canvas để tiết kiệm tối đa CPU/GPU
+    if (scrolled > cachedMaxScroll * 1.5) {
+      if (currentFrameIndex !== totalFrames - 1) {
+        currentFrameIndex = totalFrames - 1;
+        renderFrame(totalFrames - 1);
+      }
+      return;
+    }
+
+    // Tiến trình từ 0.0 (đầu hero) đến 1.0 (cuối hero)
     const progress = Math.min(Math.max(scrolled / cachedMaxScroll, 0), 1);
 
     // Tính toán index frame tương ứng
