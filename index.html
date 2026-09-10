@@ -351,7 +351,7 @@
         </a>
 
         <!-- Đặt lịch ngay button -->
-        <a href="#quote-form-section"
+        <a href="#form-bao-gia"
           class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#ba1b23] hover:bg-[#99141b] text-white text-xs lg:text-sm font-bold shadow-[0_4px_12px_rgba(186,27,35,0.3)] hover:shadow-md transition-all whitespace-nowrap shrink-0">
           <span>Đặt lịch ngay</span>
           <span class="text-sm">→</span>
@@ -370,7 +370,7 @@
         </a>
 
         <!-- Nút Đặt lịch hiển thị đầy đủ, không bị đè viền hay cắt chữ -->
-        <a href="#quote-form-section"
+        <a href="#form-bao-gia"
           class="inline-flex items-center justify-center gap-1 px-3 sm:px-3.5 py-2 rounded-xl bg-[#ba1b23] hover:bg-[#99141b] text-white text-xs font-bold shadow-[0_3px_10px_rgba(186,27,35,0.3)] transition-all whitespace-nowrap shrink-0">
           <span>Đặt lịch</span>
           <span class="text-xs">→</span>
@@ -511,7 +511,7 @@
 
             <!-- Hàng CTA: Mobile nút bấm đỏ thẳng hàng bên trái vs Desktop hàng ngang -->
             <div class="block md:hidden w-full max-w-[270px]">
-              <a href="#quote-form-section"
+              <a href="#form-bao-gia"
                 class="hero-cta-btn flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl text-white bg-[#ba1b23] hover:bg-[#99141b] active:scale-[0.98] transition-all font-bold text-[14px] shadow-[0_6px_18px_-3px_rgba(186,27,35,0.4)]">
                 <span>Nhận báo giá xe của tôi</span>
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -524,7 +524,7 @@
             <!-- Desktop CTA -->
             <div class="hidden md:flex items-center gap-5 sm:gap-6 flex-wrap">
               <!-- Nút chính: Nhận báo giá -->
-              <a href="#quote-form-section"
+              <a href="#form-bao-gia"
                 class="flex items-center justify-center gap-2.5 px-[22px] py-2.5 rounded-xl text-white bg-[#ba1b23] hover:bg-[#99141b] transition-all font-bold text-[14px] shadow-[0_8px_20px_-3px_rgba(186,27,35,0.4)] hover:shadow-md hover:-translate-y-0.5">
                 <span>Nhận báo giá xe của tôi</span>
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -592,9 +592,9 @@
             <!-- 4. Danh sách 3 Thẻ Ưu Đãi Dạng Pill Card -->
             <div class="mt-6 sm:mt-7 space-y-3.5 sm:space-y-4">
 
-              <!-- Thẻ Ưu Đãi 1: Giảm 20-30% -->
-              <div
-                class="flex items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] hover:shadow-md transition-all group cursor-pointer">
+              <!-- Thẻ Ưu Đãi 1: Giảm 20-30% (Bấm vào cuộn thẳng tới Form) -->
+              <a href="#form-bao-gia"
+                class="flex items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] hover:shadow-md transition-all group cursor-pointer block">
                 <div class="flex items-center gap-3.5 sm:gap-4 min-w-0">
                   <div
                     class="w-12 h-12 rounded-full bg-red-50 text-[#ba1b23] flex items-center justify-center shrink-0 border border-red-100">
@@ -621,11 +621,11 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
                   </svg>
                 </div>
-              </div>
+              </a>
 
-              <!-- Thẻ Ưu Đãi 2: Tặng gói tẩy ố & phủ full kính -->
-              <div
-                class="flex items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] hover:shadow-md transition-all group cursor-pointer">
+              <!-- Thẻ Ưu Đãi 2: Tặng gói tẩy ố & phủ full kính (Bấm vào cuộn thẳng tới Form) -->
+              <a href="#form-bao-gia"
+                class="flex items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] hover:shadow-md transition-all group cursor-pointer block">
                 <div class="flex items-center gap-3.5 sm:gap-4 min-w-0">
                   <div
                     class="w-12 h-12 rounded-full bg-red-50 text-[#ba1b23] flex items-center justify-center shrink-0 border border-red-100">
@@ -648,7 +648,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
                   </svg>
                 </div>
-              </div>
+              </a>
 
               <!-- Thẻ Ưu Đãi 3: Thời hạn chương trình & Bộ đếm ngược -->
               <div
@@ -699,7 +699,7 @@
           <!-- ==================================================================
                CỘT PHẢI: FORM NHẬN ƯU ĐÃI & BÁO GIÁ (THEO ĐÚNG MOCKUP)
                ================================================================== -->
-          <div class="lg:col-span-5 xl:col-span-5 flex flex-col justify-center relative z-10">
+          <div id="form-bao-gia" class="lg:col-span-5 xl:col-span-5 flex flex-col justify-center relative z-10 scroll-mt-20 md:scroll-mt-28">
             <div
               class="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-[0_16px_48px_-8px_rgba(15,23,42,0.15),0_0_0_1px_rgba(15,23,42,0.06)] border border-slate-100 relative">
 
@@ -1013,7 +1013,7 @@
               </div>
 
               <!-- Link Tư vấn trên tablet / laptop <= 1270px (Ẩn ở màn hình <= 460px để cụm nút toggle rộng rãi, thoải mái) -->
-              <a href="#quote-form-section"
+              <a href="#form-bao-gia"
                 class="hidden min-[461px]:flex min-[1280px]:hidden text-xs sm:text-sm font-bold text-slate-800 hover:text-[#ba1b23] items-center gap-1 transition-colors whitespace-nowrap shrink-0">
                 <span class="hidden sm:inline">Tư vấn chọn film cho xe</span>
                 <span class="sm:hidden">Tư vấn xe</span>
@@ -1059,7 +1059,7 @@
           </div>
 
           <!-- Link Tư vấn chọn film cho xe của tôi (Hiển thị góc phải trên desktop rộng >= 1280px) -->
-          <a href="#quote-form-section"
+          <a href="#form-bao-gia"
             class="hidden min-[1280px]:flex text-xs sm:text-sm font-bold text-slate-800 hover:text-[#ba1b23] items-center gap-1.5 transition-colors whitespace-nowrap shrink-0">
             <span>Tư vấn chọn film cho xe của tôi</span>
             <span class="text-sm">→</span>
@@ -1097,7 +1097,7 @@
             <div
               class="px-5 py-2.5 bg-slate-50/60 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500">
               <span>* Đơn giá đã bao gồm công thi công hoàn thiện, vệ sinh kính & bảo hành điện tử chính hãng.</span>
-              <a href="#quote-form-section" class="font-bold text-[#ba1b23] hover:underline flex items-center gap-1">
+              <a href="#form-bao-gia" class="font-bold text-[#ba1b23] hover:underline flex items-center gap-1">
                 <span>Nhận tư vấn phối gói theo nhu cầu</span>
                 <span>→</span>
               </a>
@@ -1169,7 +1169,7 @@
 
           <!-- Nút Đặt lịch tư vấn ngay (Căn giữa bên dưới 4 tiêu chí) -->
           <div class="flex justify-center w-full pt-1">
-            <a href="#quote-form-section"
+            <a href="#form-bao-gia"
               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 sm:py-3 rounded-xl bg-[#ba1b23] hover:bg-[#99141b] text-white text-xs sm:text-sm font-bold shadow-[0_4px_14px_rgba(186,27,35,0.3)] hover:shadow-md transition-all whitespace-nowrap shrink-0">
               <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -1700,7 +1700,7 @@
             </div>
 
             <div class="pt-3 sm:pt-6 relative z-10 mt-auto">
-              <a href="#quote-form-section"
+              <a href="#form-bao-gia"
                 class="inline-flex items-center justify-center gap-1.5 w-full py-2.5 sm:py-3.5 px-3 sm:px-6 rounded-xl sm:rounded-2xl bg-[#ba1b23] hover:bg-[#9e141b] text-white font-bold sm:font-black text-xs sm:text-base shadow-lg shadow-red-900/50 hover:shadow-xl transition-all cursor-pointer">
                 <span>Nhận ưu đãi ngay</span>
                 <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2410,7 +2410,7 @@
 
             <!-- Nhóm nút hành động -->
             <div class="mt-4 space-y-2.5">
-              <a href="#quote-form-section"
+              <a href="#form-bao-gia"
                 class="inline-flex items-center justify-center gap-2 w-full py-3.5 px-6 rounded-xl bg-[#ba1b23] hover:bg-[#99141b] text-white font-extrabold text-sm shadow-md shadow-red-600/20 hover:shadow-lg transition-all cursor-pointer">
                 <span>Đặt lịch tư vấn nhận ưu đãi ngay</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2955,7 +2955,7 @@
         </a>
 
         <!-- Nút 2: Nhận ưu đãi (Nền Đỏ rực rỡ Store Detailing, ánh sáng quét shimmer, huy hiệu -30% nổi bần bật) -->
-        <a href="#quote-form-section" id="mobile-btn-quote"
+        <a href="#form-bao-gia" id="mobile-btn-quote"
           class="flex-[6] flex items-center justify-center gap-1.5 py-3 px-3.5 rounded-2xl bg-gradient-to-r from-[#ba1b23] via-[#dc2626] to-[#e11d48] hover:from-[#9e141b] hover:to-[#ba1b23] active:scale-95 text-white font-black text-xs sm:text-sm shadow-[0_4px_20px_rgba(186,27,35,0.45)] border border-red-400/40 transition-all select-none relative overflow-hidden group">
           <!-- Hiệu ứng tia sáng quét shimmer lấp lánh qua nút -->
           <div

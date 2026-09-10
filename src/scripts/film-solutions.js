@@ -478,7 +478,7 @@ export function initFilmSolutions() {
           <td class="py-2.5 sm:py-3 px-3 text-center text-slate-800 font-semibold">${row.suonSau}</td>
           <td class="py-2.5 sm:py-3 px-3 text-center text-slate-800 font-semibold">${row.kinhLung}</td>
           <td class="py-2.5 sm:py-3 px-4 text-center">
-            <a href="#quote-form-section"
+            <a href="#form-bao-gia"
               data-prefill-product="${row.code}"
               class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#0f172a] hover:bg-[#ba1b23] text-white text-[11px] font-bold transition-all shadow-xs whitespace-nowrap">
               <span>Báo giá</span>
@@ -675,7 +675,7 @@ export function initFilmSolutions() {
               </button>
 
               <!-- Nhận ưu đãi button (Dark black/slate like mockup) -->
-              <a href="#quote-form-section"
+              <a href="#form-bao-gia"
                 class="inline-flex items-center justify-center gap-1 sm:gap-1.5 py-2.5 px-2 sm:px-3 rounded-xl bg-[#0f172a] hover:bg-slate-800 text-white text-[11px] sm:text-xs xl:text-[13px] font-bold transition-colors shadow-2xs whitespace-nowrap">
                 <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-2 shrink-0 hidden min-[400px]:inline-block md:hidden xl:inline-block" viewBox="0 0 24 24">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
