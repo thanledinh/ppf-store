@@ -46,8 +46,8 @@ export function initCarScrollCanvas() {
   // 1. Khởi tạo canvas kích thước chuẩn theo màn hình (Full 100vh - Tránh forced reflow)
   function resizeCanvas() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const width = window.innerWidth || document.documentElement.clientWidth;
-    const height = window.innerHeight || document.documentElement.clientHeight;
+    const width = track ? track.clientWidth : (window.innerWidth || document.documentElement.clientWidth);
+    const height = track ? track.clientHeight : (window.innerHeight || document.documentElement.clientHeight);
 
     const newIsMobile = window.matchMedia ? window.matchMedia('(max-width: 767px)').matches : (width < 768);
     if (newIsMobile !== isMobileMode) {
@@ -79,10 +79,10 @@ export function initCarScrollCanvas() {
   // Bộ nhớ đệm khoảng cuộn để triệt tiêu 100% Forced Reflow trong vòng lặp cuộn
   let cachedMaxScroll = 1;
   function recalculateDimensions() {
-    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 800;
-    // Đồng bộ 96 frame xe chạy trong khoảng cuộn khi hero trượt ra khỏi màn hình (~85% viewportHeight)
+    const stageHeight = track ? track.clientHeight : (window.innerHeight || document.documentElement.clientHeight || 800);
+    // Đồng bộ 96 frame xe chạy trong khoảng cuộn khi hero trượt ra khỏi màn hình (~85% stageHeight)
     // Giúp xe di chuyển mượt mà đồng thời với việc trang web cuộn xuống section tiếp theo
-    cachedMaxScroll = Math.max(Math.round(viewportHeight * 0.85), 350);
+    cachedMaxScroll = Math.max(Math.round(stageHeight * 0.85), 350);
   }
 
   // 2. Hàm vẽ frame lên canvas với thuật toán COVER (Full 100vh và 100vw)

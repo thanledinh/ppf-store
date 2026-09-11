@@ -104,8 +104,8 @@ body {
 
 @media (max-width: 767px) {
   .hero-scroll-track {
-    height: 100vh;
-    height: 100dvh;
+    height: calc(100vh - 96px);
+    height: calc(100dvh - 96px);
   }
 }
 
