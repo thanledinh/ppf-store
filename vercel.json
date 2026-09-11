@@ -9,9 +9,27 @@
       "source": "/dan-pcn-o-to-tphcm",
       "destination": "/dan-pcn-o-to-tphcm/",
       "permanent": true
+    },
+    {
+      "source": "/cam-on",
+      "destination": "/cam-on/",
+      "permanent": true
+    },
+    {
+      "source": "/dan-pcn-o-to-tphcm/cam-on",
+      "destination": "/dan-pcn-o-to-tphcm/cam-on/",
+      "permanent": true
     }
   ],
   "rewrites": [
+    {
+      "source": "/cam-on/",
+      "destination": "/cam-on/index.html"
+    },
+    {
+      "source": "/dan-pcn-o-to-tphcm/cam-on/",
+      "destination": "/cam-on/index.html"
+    },
     {
       "source": "/dan-pcn-o-to-tphcm/",
       "destination": "/index.html"

@@ -496,7 +496,7 @@ export function initQuoteForm() {
         return;
       }
 
-      // Ẩn form và hiện thông báo cảm ơn (khi gửi thành công)
+      // Ẩn form và hiện thông báo cảm ơn tạm thời
       form.classList.add('hidden');
       if (successBox) {
         successBox.classList.remove('hidden');
@@ -506,18 +506,25 @@ export function initQuoteForm() {
         const greeting = nameVal ? `anh/chị <strong>${nameVal}</strong>` : `<strong>Quý khách</strong>`;
         const carInfo = (carVal || lastViewedCarType) ? ` cho dòng xe <strong>${carVal || lastViewedCarType}</strong>` : '';
         const pkgInfo = packageVal ? ` • Gói quan tâm: <strong>${packageVal}</strong>` : '';
-        successMsg.innerHTML = `Cảm ơn ${greeting}! Store Detailing đã tiếp nhận yêu cầu báo giá${carInfo}${pkgInfo}. Chuyên viên kỹ thuật sẽ gọi điện/Zalo qua số <strong>${phoneVal}</strong> ngay trong 3-5 phút.`;
+        successMsg.innerHTML = `Cảm ơn ${greeting}! Store Detailing đã tiếp nhận yêu cầu báo giá${carInfo}${pkgInfo}. Đang chuyển hướng sang trang xác nhận...`;
       }
 
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `
-          <span>Nhận tư vấn và báo giá chi tiết</span>
-          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        `;
-      }
+      // Lưu thông tin lead vào sessionStorage để trang /cam-on hiển thị cá nhân hóa
+      try {
+        sessionStorage.setItem('sd_lead_name', finalName);
+        sessionStorage.setItem('sd_lead_phone', phoneVal);
+        sessionStorage.setItem('sd_lead_car', finalCar);
+        sessionStorage.setItem('sd_lead_package', finalPackage);
+      } catch (e) {}
+
+      // Chuyển hướng sang trang /cam-on (giữ nguyên UTM / query tracking cho Pixel & Google Ads Conversion)
+      const BASE_URL = (import.meta.env.BASE_URL || '/dan-pcn-o-to-tphcm/').replace(/\/?$/, '/');
+      const searchParams = window.location.search || '';
+      const targetUrl = `${BASE_URL}cam-on/${searchParams}`;
+
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 500);
     });
 
     resetBtn?.addEventListener('click', () => {

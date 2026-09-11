@@ -25,6 +25,18 @@ export default defineConfig(({ mode }) => {
               res.end();
               return;
             }
+            if (pathname === '/cam-on' || pathname === '/cam-on/') {
+              res.statusCode = 301;
+              res.setHeader('Location', '/dan-pcn-o-to-tphcm/cam-on/' + (search ? `?${search}` : ''));
+              res.end();
+              return;
+            }
+            if (pathname === '/dan-pcn-o-to-tphcm/cam-on') {
+              res.statusCode = 301;
+              res.setHeader('Location', '/dan-pcn-o-to-tphcm/cam-on/' + (search ? `?${search}` : ''));
+              res.end();
+              return;
+            }
             next();
           });
         },
@@ -35,6 +47,18 @@ export default defineConfig(({ mode }) => {
             if (pathname === '/dan-pcn-o-to-tphcm') {
               res.statusCode = 301;
               res.setHeader('Location', '/dan-pcn-o-to-tphcm/' + (search ? `?${search}` : ''));
+              res.end();
+              return;
+            }
+            if (pathname === '/cam-on' || pathname === '/cam-on/') {
+              res.statusCode = 301;
+              res.setHeader('Location', '/dan-pcn-o-to-tphcm/cam-on/' + (search ? `?${search}` : ''));
+              res.end();
+              return;
+            }
+            if (pathname === '/dan-pcn-o-to-tphcm/cam-on') {
+              res.statusCode = 301;
+              res.setHeader('Location', '/dan-pcn-o-to-tphcm/cam-on/' + (search ? `?${search}` : ''));
               res.end();
               return;
             }
@@ -60,7 +84,7 @@ export default defineConfig(({ mode }) => {
           });
         },
       },
-      // Tạo bản sao index.html tại dist/dan-pcn-o-to-tphcm/index.html cho các nền tảng static hosting
+      // Tạo bản sao index.html và cam-on tại dist/dan-pcn-o-to-tphcm/ cho các nền tảng static hosting
       {
         name: 'copy-subpath-index',
         closeBundle() {
@@ -71,6 +95,15 @@ export default defineConfig(({ mode }) => {
             const indexPath = path.join(distDir, 'index.html');
             if (fs.existsSync(indexPath)) {
               fs.copyFileSync(indexPath, path.join(subDir, 'index.html'));
+            }
+            const camonDistDir = path.join(distDir, 'cam-on');
+            const camonSubDir = path.join(subDir, 'cam-on');
+            if (fs.existsSync(camonDistDir)) {
+              fs.mkdirSync(camonSubDir, { recursive: true });
+              const camonIndex = path.join(camonDistDir, 'index.html');
+              if (fs.existsSync(camonIndex)) {
+                fs.copyFileSync(camonIndex, path.join(camonSubDir, 'index.html'));
+              }
             }
           }
         },
@@ -85,6 +118,12 @@ export default defineConfig(({ mode }) => {
       assetsDir: 'assets',
       sourcemap: false,
       minify: 'esbuild',
+      rollupOptions: {
+        input: {
+          main: path.resolve(process.cwd(), 'index.html'),
+          camon: path.resolve(process.cwd(), 'cam-on/index.html'),
+        },
+      },
     },
   };
 });
