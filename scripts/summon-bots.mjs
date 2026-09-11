@@ -1,7 +1,7 @@
 ﻿// scripts/summon-bots.mjs
 // Tự động kích hoạt IndexNow và thông báo tới các AI Search Engines (ChatGPT Search, Bing, Copilot)
 
-const DOMAIN = 'storedetailing.vn';
+const DOMAIN = 'pcn.storedetailing.vn';
 const INDEXNOW_KEY = 'c035653b478d4624b423f0abc1234567';
 
 const TARGET_URLS = [

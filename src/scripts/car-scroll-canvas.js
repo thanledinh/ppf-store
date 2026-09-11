@@ -43,13 +43,19 @@ export function initCarScrollCanvas() {
     return `${BASE_URL}${folder}/frame_${padded}.webp`;
   }
 
-  // 1. Khởi tạo canvas kích thước chuẩn theo màn hình (Full 100vh - Tránh forced reflow)
-  function resizeCanvas() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const width = window.innerWidth || document.documentElement.clientWidth;
-    const height = window.innerHeight || document.documentElement.clientHeight;
+  // 1. Khởi tạo canvas kích thước chuẩn theo màn hình (Full 100vh - Triệt tiêu 100% Forced Reflow)
+  let cachedViewportWidth = window.innerWidth || document.documentElement.clientWidth || 390;
+  let cachedViewportHeight = window.innerHeight || document.documentElement.clientHeight || 844;
+  let cachedDpr = Math.min(window.devicePixelRatio || 1, 2);
+  let cachedMaxScroll = Math.max(Math.round(cachedViewportHeight * 0.85), 350);
 
-    const newIsMobile = window.matchMedia ? window.matchMedia('(max-width: 767px)').matches : (width < 768);
+  function resizeCanvas() {
+    // PHA 1: ĐỌC DỮ LIỆU (READ PHASE) - Không can thiệp DOM ở bước này
+    cachedDpr = Math.min(window.devicePixelRatio || 1, 2);
+    cachedViewportWidth = window.innerWidth || document.documentElement.clientWidth || 390;
+    cachedViewportHeight = window.innerHeight || document.documentElement.clientHeight || 844;
+
+    const newIsMobile = window.matchMedia ? window.matchMedia('(max-width: 767px)').matches : (cachedViewportWidth < 768);
     if (newIsMobile !== isMobileMode) {
       isMobileMode = newIsMobile;
       const activeFrames = getActiveFrames();
@@ -58,31 +64,29 @@ export function initCarScrollCanvas() {
       }
     }
 
-    const targetW = Math.round(width * dpr);
-    const targetH = Math.round(height * dpr);
+    const targetW = Math.round(cachedViewportWidth * cachedDpr);
+    const targetH = Math.round(cachedViewportHeight * cachedDpr);
+    const targetStyleW = `${cachedViewportWidth}px`;
+    const targetStyleH = `${cachedViewportHeight}px`;
+
+    // Cập nhật khoảng cuộn tối đa
+    cachedMaxScroll = Math.max(Math.round(cachedViewportHeight * 0.85), 350);
+
+    // PHA 2: GHI DỮ LIỆU (WRITE PHASE) - Gom cụm các thay đổi style
     if (canvas.width !== targetW || canvas.height !== targetH) {
       canvas.width = targetW;
       canvas.height = targetH;
     }
-    const targetStyleW = `${width}px`;
-    const targetStyleH = `${height}px`;
     if (canvas.style.width !== targetStyleW) canvas.style.width = targetStyleW;
     if (canvas.style.height !== targetStyleH) canvas.style.height = targetStyleH;
 
-    // Cập nhật khoảng cuộn tối đa (chỉ tính lại khi resize, tránh forced reflow lúc cuộn)
-    cachedMaxScroll = Math.max(Math.round(height * 0.85), 350);
-
-    // Render lại frame hiện tại khi đổi kích thước màn hình
+    // Render lại frame hiện tại bằng các giá trị đã cache (tránh layout recalculation)
     renderFrame(currentFrameIndex);
   }
 
-  // Bộ nhớ đệm khoảng cuộn để triệt tiêu 100% Forced Reflow trong vòng lặp cuộn
-  let cachedMaxScroll = 1;
   function recalculateDimensions() {
-    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 800;
-    // Đồng bộ 96 frame xe chạy trong khoảng cuộn khi hero trượt ra khỏi màn hình (~85% viewportHeight)
-    // Giúp xe di chuyển mượt mà đồng thời với việc trang web cuộn xuống section tiếp theo
-    cachedMaxScroll = Math.max(Math.round(viewportHeight * 0.85), 350);
+    cachedViewportHeight = window.innerHeight || document.documentElement.clientHeight || 800;
+    cachedMaxScroll = Math.max(Math.round(cachedViewportHeight * 0.85), 350);
   }
 
   // 2. Hàm vẽ frame lên canvas với thuật toán COVER (Full 100vh và 100vw)
@@ -121,11 +125,11 @@ export function initCarScrollCanvas() {
     let drawX, drawY;
 
     if (isMobileMode) {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const isTallScreen = window.innerHeight > 740;
+      const dpr = cachedDpr;
+      const isTallScreen = cachedViewportHeight > 740;
 
       // Chiều cao <= 740px: Giữ nguyên 100% chiều ngang sát đáy (để yên)
-      // Chiều cao > 740px (iPhone 16 Pro Max, 844 - 1000px): Phóng lớn nhẹ 6% và nâng vị trí lên để hòa quyện với phần thông tin
+      // Chiều cao > 740px (iPhone 16 Pro Max, 844 - 1000px): Phóng lớn nhẹ 5% và nâng vị trí lên để hòa quyện với phần thông tin
       const widthMultiplier = isTallScreen ? 1.05 : 1.0;
       scale = (canvas.width * widthMultiplier) / imgWidth;
 
@@ -138,7 +142,7 @@ export function initCarScrollCanvas() {
       drawH = imgHeight * scale;
 
       drawX = (canvas.width - drawW) / 2;
-      const extraHeight = Math.max(0, (window.innerHeight - 740) * dpr);
+      const extraHeight = Math.max(0, (cachedViewportHeight - 740) * dpr);
       const liftY = Math.min(extraHeight * 0.28, 62 * dpr);
       drawY = (canvas.height - drawH) - liftY;
     } else {

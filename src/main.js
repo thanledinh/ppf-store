@@ -6,6 +6,7 @@ import { initQuoteForm } from './scripts/quote-form.js';
 import { initCountdownTimer } from './scripts/countdown-timer.js';
 import { initFaqAccordion } from './scripts/faq-accordion.js';
 import { initKolVideo } from './scripts/kol-video.js';
+import { initGallery } from './scripts/gallery.js';
 
 /**
  * Store Detailing - Landing Page Dán Phim Cách Nhiệt Ô Tô
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try { initFloatingContact(); } catch(e) { console.error(e); }
     try { initFaqAccordion(); } catch(e) { console.error(e); }
     try { initKolVideo(); } catch(e) { console.error(e); }
-    import('./scripts/gallery.js').catch(e => console.error(e));
+    try { initGallery(); } catch(e) { console.error(e); }
   };
 
   if ('requestIdleCallback' in window) {

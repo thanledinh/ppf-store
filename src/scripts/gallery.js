@@ -159,10 +159,3 @@ export function initGallery() {
     if (e.key === 'ArrowLeft') prevImage();
   });
 }
-
-// Tự động khởi chạy nếu được import trực tiếp
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initGallery);
-} else {
-  initGallery();
-}

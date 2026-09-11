@@ -565,3 +565,30 @@ html.dark #hero-overlay-content {
   transform-origin: center center;
   will-change: transform;
 }
+
+/* ==========================================================================
+   TRUST BAR: TỐI ƯU HIỂN THỊ CHO MOBILE NHỎ (<= 380px)
+   Giảm 1px cả chữ và icon để không bị co ép chữ trên màn hình nhỏ
+   ========================================================================== */
+@media (max-width: 380px) {
+  .trust-bar-container {
+    padding-left: 0.625rem !important; /* 10px */
+    padding-right: 0.625rem !important;
+  }
+  .trust-bar-item {
+    gap: 0.375rem !important; /* 6px */
+  }
+  .trust-bar-icon,
+  .trust-bar-item svg {
+    width: 18px !important; /* Giảm size icon */
+    height: 18px !important;
+  }
+  .trust-bar-title {
+    font-size: 10px !important; /* Giảm 1px: 12px -> 11px */
+    line-height: 1.25 !important;
+  }
+  .trust-bar-sub {
+    font-size: 10px !important; /* Giảm 1px: 11px -> 10px */
+    line-height: 1.25 !important;
+  }
+}

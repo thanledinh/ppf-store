@@ -376,11 +376,17 @@ export function initQuoteForm() {
   const packageInput = document.getElementById('quote-package');
 
   const phoneError = document.getElementById('quote-phone-error');
+  const carError = document.getElementById('quote-car-error');
 
   if (form) {
     phoneInput?.addEventListener('input', () => {
       phoneError?.classList.add('hidden');
       phoneInput.classList.remove('border-red-500');
+    });
+
+    carInput?.addEventListener('input', () => {
+      carError?.classList.add('hidden');
+      carInput.classList.remove('border-red-500');
     });
 
     form.addEventListener('submit', async (e) => {
@@ -407,7 +413,7 @@ export function initQuoteForm() {
         return;
       }
 
-      // Họ tên và Dòng xe là tùy chọn (mặc định không cần nhập)
+      // Họ tên là tùy chọn, Dòng xe và Số điện thoại là BẮT BUỘC
       const nameVal = nameInput ? nameInput.value.trim() : '';
       const phoneVal = phoneInput ? phoneInput.value.trim().replace(/\s+/g, '') : '';
       const carVal = carInput ? carInput.value.trim() : '';
@@ -424,6 +430,17 @@ export function initQuoteForm() {
         }
         phoneInput?.classList.add('border-red-500');
         phoneInput?.focus();
+        return;
+      }
+
+      // LỚP 5: Bắt buộc DÒNG XE
+      if (!carVal) {
+        if (carError) {
+          carError.textContent = 'Vui lòng nhập dòng xe của bạn (VD: Vios, CX-5, VF8...)';
+          carError.classList.remove('hidden');
+        }
+        carInput?.classList.add('border-red-500');
+        carInput?.focus();
         return;
       }
 
@@ -546,6 +563,8 @@ export function initQuoteForm() {
       successBox?.classList.add('hidden');
       phoneError?.classList.add('hidden');
       phoneInput?.classList.remove('border-red-500');
+      carError?.classList.add('hidden');
+      carInput?.classList.remove('border-red-500');
     });
   }
 
@@ -554,14 +573,20 @@ export function initQuoteForm() {
   // =========================================================================
   const easterForm = document.getElementById('easter-egg-form');
   if (easterForm) {
+    const honeypotEl = document.getElementById('ee-bot-check');
+    const nameEl = document.getElementById('ee-name');
+    const phoneEl = document.getElementById('ee-phone');
+    const carEl = document.getElementById('ee-car');
+    const carErrorEl = document.getElementById('ee-car-error');
+    const submitBtn = easterForm.querySelector('button[type="submit"]');
+
+    carEl?.addEventListener('input', () => {
+      carErrorEl?.classList.add('hidden');
+      carEl.classList.remove('border-red-500');
+    });
+
     easterForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      const honeypotEl = document.getElementById('ee-bot-check');
-      const nameEl = document.getElementById('ee-name');
-      const phoneEl = document.getElementById('ee-phone');
-      const carEl = document.getElementById('ee-car');
-      const submitBtn = easterForm.querySelector('button[type="submit"]');
 
       // LỚP 1: Bẫy Honeypot
       if (honeypotEl && honeypotEl.value.trim() !== '') {
@@ -584,7 +609,20 @@ export function initQuoteForm() {
       const phoneVal = phoneEl ? phoneEl.value.trim().replace(/\s+/g, '') : '';
       const carVal = carEl ? carEl.value.trim() : '';
 
-      // LỚP 4: Bắt buộc số điện thoại hợp lệ (10 chữ số)
+      // LỚP 4: Bắt buộc DÒNG XE
+      if (!carVal) {
+        if (carErrorEl) {
+          carErrorEl.textContent = 'Vui lòng nhập dòng xe của bạn (VD: Vios, CX-5, VF8...)';
+          carErrorEl.classList.remove('hidden');
+        } else {
+          alert('Vui lòng nhập dòng xe của bạn (VD: Vios, CX-5, VF8...)');
+        }
+        carEl?.classList.add('border-red-500');
+        carEl?.focus();
+        return;
+      }
+
+      // LỚP 5: Bắt buộc số điện thoại hợp lệ (10 chữ số)
       const phoneRegex = /^(03|05|07|08|09)\d{8}$/;
       const isPhoneRegexValid = phoneRegex.test(phoneVal);
 
@@ -594,7 +632,7 @@ export function initQuoteForm() {
         return;
       }
 
-      // LỚP 5: Lọc số rác / số ảo
+      // LỚP 6: Lọc số rác / số ảo
       const isSpamPhone = isSpamPhoneNumber(phoneVal);
       if (isSpamPhone) {
         alert('Vui lòng nhập đúng số điện thoại di động thực tế để nhận báo giá.');
