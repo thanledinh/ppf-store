@@ -496,12 +496,14 @@ export function initFilmSolutions() {
 
     packagesContainer.innerHTML = data.packages.map((pkg) => {
       const priceVal = pkg.prices[carType] || pkg.prices['sedan'];
+      const BASE_URL = (import.meta.env.BASE_URL || '/').replace(/\/?$/, '/');
+      const badgeImgSrc = pkg.badgeImg ? (pkg.badgeImg.startsWith('/') ? `${BASE_URL}${pkg.badgeImg.slice(1)}` : pkg.badgeImg) : '';
 
       return `
         <div class="package-card group bg-white rounded-xl lg:rounded-2xl border border-slate-200/90 hover:border-red-300 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden relative shadow-xs">
           <!-- 1. Header image with Brand overlay -->
           <div class="h-36 sm:h-40 xl:h-44 w-full bg-slate-950 relative overflow-hidden flex items-end p-4 select-none shrink-0">
-            <img src="${pkg.badgeImg}" alt="${pkg.brandDisplay} ${pkg.brandSub}" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" width="450" height="250" />
+            <img src="${badgeImgSrc}" alt="${pkg.brandDisplay} ${pkg.brandSub}" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" width="450" height="250" />
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent pointer-events-none"></div>
 
             <!-- Title & subtitle overlay (bottom left) -->
@@ -568,7 +570,7 @@ export function initFilmSolutions() {
               </button>
 
               <!-- Nhận ưu đãi button (Dark black/slate like mockup) -->
-              <a href="#form-bao-gia"
+              <a href="#form-bao-gia" data-select-package="${pkg.brandDisplay} ${pkg.brandSub}"
                 class="inline-flex items-center justify-center gap-1 sm:gap-1.5 py-2.5 px-2 sm:px-3 rounded-xl bg-[#0f172a] hover:bg-slate-800 text-white text-[11px] sm:text-xs xl:text-[13px] font-bold transition-colors shadow-2xs whitespace-nowrap">
                 <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-2 shrink-0 hidden min-[400px]:inline-block md:hidden xl:inline-block" viewBox="0 0 24 24">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>

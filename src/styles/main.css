@@ -227,7 +227,8 @@ body {
   .hero-eyebrow {
     font-size: 11px !important;
     letter-spacing: 0.22em !important;
-    margin-bottom: 0.45rem !important; /* ~7px */
+    margin-bottom: 0.45rem !important;
+    /* ~7px */
   }
 
   /* Tiêu đề H1: Kích thước vừa vặn, 2 dòng chữ xếp gần nhau, khoảng cách dưới nhỏ */
@@ -235,20 +236,23 @@ body {
     font-size: clamp(34px, 4.3vh, 39px) !important;
     line-height: 1.08 !important;
     gap: 4px !important;
-    margin-bottom: 0.65rem !important; /* ~10px */
+    margin-bottom: 0.65rem !important;
+    /* ~10px */
   }
 
   /* Dòng thương hiệu & giá: Xếp sát dòng tính năng */
   .hero-brand-price {
     font-size: 13.5px !important;
-    margin-bottom: 0.65rem !important; /* ~10px */
+    margin-bottom: 0.65rem !important;
+    /* ~10px */
   }
 
   /* 3 tính năng: Icon nhỏ gọn, khoảng cách xếp gần */
   .hero-features {
     font-size: 11.5px !important;
     gap: 0.65rem !important;
-    margin-bottom: 0.75rem !important; /* ~12px */
+    margin-bottom: 0.75rem !important;
+    /* ~12px */
   }
 
   .hero-features svg {
@@ -259,7 +263,8 @@ body {
   /* Khối bảo hành & ưu đãi: Gọn gàng, xếp gần nút bấm */
   .hero-promo-box {
     gap: 0.75rem !important;
-    margin-bottom: 0.95rem !important; /* ~15px */
+    margin-bottom: 0.95rem !important;
+    /* ~15px */
   }
 
   .hero-promo-box svg {
@@ -356,6 +361,7 @@ body {
     opacity: 0;
     transform: translateY(14px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -389,6 +395,53 @@ body {
 #hero-overlay-content,
 #hero-overlay-content * {
   color-scheme: only light !important;
+}
+
+/* ==========================================================================
+   KHUNG KÍNH MỜ FROSTED GLASS CHO MÀN HÌNH <= 1560px (IPAD, TABLET, MACBOOK AIR)
+   Hiệu ứng kính mờ sang trọng: xe phía sau bị làm mờ ảo diệu (nửa thấy nửa mờ),
+   chữ đen và nút đỏ bên trên nổi bật rõ nét 100%
+   ========================================================================== */
+.hero-glass-panel {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 1560px) {
+  #hero-overlay-content .hero-glass-panel {
+    width: fit-content !important;
+    max-width: 100% !important;
+    background: rgba(255, 255, 255, 0.48) !important;
+    backdrop-filter: blur(20px) saturate(190%) contrast(105%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(190%) contrast(105%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.75) !important;
+    border-radius: 1.75rem !important;
+    padding: 1.5rem 1.75rem !important;
+    box-shadow: 
+      0 20px 45px -10px rgba(15, 23, 42, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.6),
+      inset 0 1px 2px rgba(255, 255, 255, 0.85) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  #hero-overlay-content .hero-glass-panel {
+    padding: 1.25rem 1.25rem 1.35rem 1.25rem !important;
+    border-radius: 1.5rem !important;
+    background: rgba(255, 255, 255, 0.42) !important;
+    backdrop-filter: blur(18px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+  }
+}
+
+@media (min-width: 1561px) {
+  #hero-overlay-content .hero-glass-panel {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0 !important;
+  }
 }
 
 /* Khóa màu chữ tuyệt đối trong Hero trên nền trắng canvas */
@@ -492,3 +545,20 @@ html.dark #hero-overlay-content {
   }
 }
 
+/* ==========================================================================
+   HIỆU ỨNG HUY HIỆU NGHIÊNG QUA NGHIÊNG LẠI (SWAY / TILT ANIMATION)
+   ========================================================================== */
+@keyframes tiltSway {
+  0%, 100% {
+    transform: rotate(-3.5deg);
+  }
+  50% {
+    transform: rotate(3.5deg);
+  }
+}
+
+.badge-tilt-sway {
+  animation: tiltSway 2.8s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
+}

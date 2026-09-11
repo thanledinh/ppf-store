@@ -17,6 +17,9 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+*.local.js
+leads.csv
+leads.json
 
 # Editor directories and files
 .vscode/*

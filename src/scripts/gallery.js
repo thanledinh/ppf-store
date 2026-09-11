@@ -1,7 +1,8 @@
 /**
- * Xử lý logic Gallery Lightbox cho các dự án dán phim
+ * Store Detailing - Gallery Lightbox Controller
+ * Tối ưu hiệu năng: Sử dụng Event Delegation, không forced reflow, cực nhẹ luồng chính
  */
-document.addEventListener('DOMContentLoaded', () => {
+export function initGallery() {
   const lightbox = document.getElementById('gallery-lightbox');
   if (!lightbox) return;
 
@@ -18,36 +19,44 @@ document.addEventListener('DOMContentLoaded', () => {
   // Mở Lightbox
   const openLightbox = (title, imagesData) => {
     try {
-      currentImages = JSON.parse(imagesData);
+      currentImages = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
       currentIndex = 0;
-      titleEl.textContent = title;
+      if (titleEl) titleEl.textContent = title || '';
       
       updateLightboxContent();
       
       // Render thumbnails
-      thumbnailsContainer.innerHTML = '';
-      currentImages.forEach((src, index) => {
-        const btn = document.createElement('button');
-        btn.className = `w-16 h-12 sm:w-20 sm:h-14 shrink-0 rounded-md overflow-hidden border-2 transition-all opacity-60 hover:opacity-100 ${index === currentIndex ? 'border-[#ba1b23] opacity-100' : 'border-transparent'}`;
-        btn.onclick = () => {
-          currentIndex = index;
-          updateLightboxContent();
-        };
-        
-        const img = document.createElement('img');
-        img.src = src;
-        img.className = 'w-full h-full object-cover';
-        
-        btn.appendChild(img);
-        thumbnailsContainer.appendChild(btn);
-      });
+      if (thumbnailsContainer) {
+        thumbnailsContainer.innerHTML = '';
+        currentImages.forEach((src, index) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.setAttribute('aria-label', `Xem ảnh ${index + 1}`);
+          btn.className = `w-16 h-12 sm:w-20 sm:h-14 shrink-0 rounded-md overflow-hidden border-2 transition-all opacity-60 hover:opacity-100 ${index === currentIndex ? 'border-[#ba1b23] opacity-100' : 'border-transparent'}`;
+          btn.onclick = () => {
+            currentIndex = index;
+            updateLightboxContent();
+          };
+          
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = `Thumbnail ${index + 1}`;
+          img.width = 80;
+          img.height = 56;
+          img.loading = 'lazy';
+          img.className = 'w-full h-full object-cover';
+          
+          btn.appendChild(img);
+          thumbnailsContainer.appendChild(btn);
+        });
+      }
 
-      // Show lightbox
+      // Show lightbox mượt mà không gây forced reflow
       lightbox.classList.remove('hidden');
-      // Trigger reflow
-      void lightbox.offsetWidth;
-      lightbox.classList.remove('opacity-0');
-      lightbox.classList.add('opacity-100');
+      window.requestAnimationFrame(() => {
+        lightbox.classList.remove('opacity-0');
+        lightbox.classList.add('opacity-100');
+      });
       document.body.style.overflow = 'hidden'; // Ngăn cuộn trang
     } catch (e) {
       console.error('Invalid image data', e);
@@ -62,12 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
       lightbox.classList.add('hidden');
       document.body.style.overflow = '';
       currentImages = [];
-    }, 300);
+    }, 250);
   };
 
   // Cập nhật nội dung Lightbox
   const updateLightboxContent = () => {
-    if (currentImages.length === 0) return;
+    if (currentImages.length === 0 || !mainImg) return;
     
     // Fade effect cho ảnh chính
     mainImg.style.opacity = '0';
@@ -76,18 +85,20 @@ document.addEventListener('DOMContentLoaded', () => {
       mainImg.onload = () => {
         mainImg.style.opacity = '1';
       };
-    }, 150);
+    }, 120);
 
     // Cập nhật trạng thái thumbnail
-    const thumbs = thumbnailsContainer.children;
-    for (let i = 0; i < thumbs.length; i++) {
-      if (i === currentIndex) {
-        thumbs[i].classList.add('border-[#ba1b23]', 'opacity-100');
-        thumbs[i].classList.remove('border-transparent', 'opacity-60');
-        thumbs[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      } else {
-        thumbs[i].classList.remove('border-[#ba1b23]', 'opacity-100');
-        thumbs[i].classList.add('border-transparent', 'opacity-60');
+    if (thumbnailsContainer) {
+      const thumbs = thumbnailsContainer.children;
+      for (let i = 0; i < thumbs.length; i++) {
+        if (i === currentIndex) {
+          thumbs[i].classList.add('border-[#ba1b23]', 'opacity-100');
+          thumbs[i].classList.remove('border-transparent', 'opacity-60');
+          thumbs[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } else {
+          thumbs[i].classList.remove('border-[#ba1b23]', 'opacity-100');
+          thumbs[i].classList.add('border-transparent', 'opacity-60');
+        }
       }
     }
   };
@@ -104,31 +115,37 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLightboxContent();
   };
 
-  // Gắn sự kiện cho các Card
-  document.querySelectorAll('.gallery-card').forEach(card => {
-    card.addEventListener('click', () => {
+  // Event Delegation cho Gallery Cards - 0ms startup time!
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.gallery-card');
+    if (card) {
       const title = card.getAttribute('data-title');
       const imagesData = card.getAttribute('data-images');
       openLightbox(title, imagesData);
-    });
-    
-    // Hỗ trợ phím Enter/Space cho Accessibility
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
+    }
+  });
+
+  // Hỗ trợ phím Enter/Space cho Accessibility trên Gallery Cards
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const card = document.activeElement && document.activeElement.closest('.gallery-card');
+      if (card) {
         e.preventDefault();
-        card.click();
+        const title = card.getAttribute('data-title');
+        const imagesData = card.getAttribute('data-images');
+        openLightbox(title, imagesData);
       }
-    });
+    }
   });
 
   // Gắn sự kiện cho Modal Controls
-  closeBtn.addEventListener('click', closeLightbox);
-  nextBtn.addEventListener('click', nextImage);
-  prevBtn.addEventListener('click', prevImage);
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+  if (nextBtn) nextBtn.addEventListener('click', nextImage);
+  if (prevBtn) prevBtn.addEventListener('click', prevImage);
   
   // Đóng khi click ra ngoài ảnh
   lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox || e.target.closest('.flex-1') === e.target) {
+    if (e.target === lightbox || (e.target.closest('.flex-1') === e.target)) {
       closeLightbox();
     }
   });
@@ -141,4 +158,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'ArrowRight') nextImage();
     if (e.key === 'ArrowLeft') prevImage();
   });
-});
+}
+
+// Tự động khởi chạy nếu được import trực tiếp
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initGallery);
+} else {
+  initGallery();
+}

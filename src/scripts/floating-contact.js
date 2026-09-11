@@ -80,7 +80,8 @@ export function initFloatingContact() {
   }, 1800);
 
   // Khi vào trên mobile: Báo lên "Bấm vào để liên hệ" rồi vài giây sau tự mờ dần biến mất
-  if (greetingBubble && window.innerWidth < 768) {
+  const isMobile = window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+  if (greetingBubble && isMobile) {
     greetingBubble.classList.remove('hidden');
     setTimeout(() => {
       greetingBubble.style.opacity = '0';

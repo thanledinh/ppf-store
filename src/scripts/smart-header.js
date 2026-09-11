@@ -12,7 +12,7 @@ export function initSmartHeader() {
   const header = document.getElementById('site-header') || document.querySelector('header');
   if (!header) return;
 
-  let lastScrollY = window.scrollY || 0;
+  let lastScrollY = 0;
   let isMouseOverHeader = false;
   let hideTimeout = null;
 

@@ -27,7 +27,7 @@ export function initCarScrollCanvas() {
   const desktopFrames = new Array(totalFrames);
   const mobileFrames = new Array(totalFrames);
 
-  let isMobileMode = window.innerWidth < 768;
+  let isMobileMode = window.matchMedia ? window.matchMedia('(max-width: 767px)').matches : (window.innerWidth < 768);
   let currentFrameIndex = 0;
   let isTicking = false;
 
@@ -35,18 +35,21 @@ export function initCarScrollCanvas() {
     return isMobileMode ? mobileFrames : desktopFrames;
   }
 
+  const BASE_URL = (import.meta.env.BASE_URL || '/').replace(/\/?$/, '/');
+
   function getFramePath(index, forMobile) {
     const padded = String(index).padStart(3, '0');
-    return forMobile ? `/mobile-frames/frame_${padded}.webp` : `/frames/frame_${padded}.webp`;
+    const folder = forMobile ? 'mobile-frames' : 'frames';
+    return `${BASE_URL}${folder}/frame_${padded}.webp`;
   }
 
   // 1. Khởi tạo canvas kích thước chuẩn theo màn hình (Full 100vh - Tránh forced reflow)
   function resizeCanvas() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width = window.innerWidth || document.documentElement.clientWidth;
+    const height = window.innerHeight || document.documentElement.clientHeight;
 
-    const newIsMobile = window.innerWidth < 768;
+    const newIsMobile = window.matchMedia ? window.matchMedia('(max-width: 767px)').matches : (width < 768);
     if (newIsMobile !== isMobileMode) {
       isMobileMode = newIsMobile;
       const activeFrames = getActiveFrames();
@@ -55,13 +58,19 @@ export function initCarScrollCanvas() {
       }
     }
 
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
+    const targetW = Math.round(width * dpr);
+    const targetH = Math.round(height * dpr);
+    if (canvas.width !== targetW || canvas.height !== targetH) {
+      canvas.width = targetW;
+      canvas.height = targetH;
+    }
+    const targetStyleW = `${width}px`;
+    const targetStyleH = `${height}px`;
+    if (canvas.style.width !== targetStyleW) canvas.style.width = targetStyleW;
+    if (canvas.style.height !== targetStyleH) canvas.style.height = targetStyleH;
 
     // Cập nhật khoảng cuộn tối đa (chỉ tính lại khi resize, tránh forced reflow lúc cuộn)
-    recalculateDimensions();
+    cachedMaxScroll = Math.max(Math.round(height * 0.85), 350);
 
     // Render lại frame hiện tại khi đổi kích thước màn hình
     renderFrame(currentFrameIndex);
@@ -312,8 +321,8 @@ export function initCarScrollCanvas() {
   window.addEventListener('resize', resizeCanvas, { passive: true });
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // Khởi chạy kích thước ban đầu
-  resizeCanvas();
+  // Khởi chạy kích thước ban đầu trong requestAnimationFrame để tránh forced reflow
+  window.requestAnimationFrame(resizeCanvas);
 }
 
 /**
