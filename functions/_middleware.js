@@ -1,10 +1,22 @@
-﻿// functions/_middleware.js
+// functions/_middleware.js
 // Cloudflare Pages Edge Middleware - Giám sát & nhận diện Bot AI & Search Engines
 
 export async function onRequest(context) {
   const { request } = context;
   const userAgent = request.headers.get('user-agent') || '';
   const url = new URL(request.url);
+
+  // Tự động thêm trailing slash nếu thiếu (ví dụ: /dan-pcn-o-to-tphcm -> /dan-pcn-o-to-tphcm/)
+  if (url.pathname === '/dan-pcn-o-to-tphcm') {
+    url.pathname = '/dan-pcn-o-to-tphcm/';
+    return Response.redirect(url.toString(), 301);
+  }
+
+  // Chuyển hướng từ trang chủ root sang slug landing page chính
+  if (url.pathname === '' || url.pathname === '/') {
+    url.pathname = '/dan-pcn-o-to-tphcm/';
+    return Response.redirect(url.toString(), 302);
+  }
 
   const KNOWN_BOTS = [
     { name: 'ChatGPT-User', pattern: /ChatGPT-User/i },

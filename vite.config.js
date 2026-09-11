@@ -13,6 +13,54 @@ export default defineConfig(({ mode }) => {
     base,
     plugins: [
       tailwindcss(),
+      // Tự động chuyển hướng nếu thiếu dấu gạch chéo cuối (ví dụ: /dan-pcn-o-to-tphcm -> /dan-pcn-o-to-tphcm/)
+      {
+        name: 'trailing-slash-redirect',
+        configureServer(server) {
+          const cleanBase = base.replace(/\/+$/, '');
+          server.middlewares.use((req, res, next) => {
+            const url = req.url || '';
+            const [pathname, search] = url.split('?');
+            if (pathname === cleanBase) {
+              const target = base + (search ? `?${search}` : '');
+              res.statusCode = 301;
+              res.setHeader('Location', target);
+              res.end();
+              return;
+            }
+            if (pathname === '' || pathname === '/') {
+              const target = base + (search ? `?${search}` : '');
+              res.statusCode = 302;
+              res.setHeader('Location', target);
+              res.end();
+              return;
+            }
+            next();
+          });
+        },
+        configurePreviewServer(server) {
+          const cleanBase = base.replace(/\/+$/, '');
+          server.middlewares.use((req, res, next) => {
+            const url = req.url || '';
+            const [pathname, search] = url.split('?');
+            if (pathname === cleanBase) {
+              const target = base + (search ? `?${search}` : '');
+              res.statusCode = 301;
+              res.setHeader('Location', target);
+              res.end();
+              return;
+            }
+            if (pathname === '' || pathname === '/') {
+              const target = base + (search ? `?${search}` : '');
+              res.statusCode = 302;
+              res.setHeader('Location', target);
+              res.end();
+              return;
+            }
+            next();
+          });
+        },
+      },
       // Phục vụ favicon.svg tại root domain (tránh 404 khi browser request root)
       {
         name: 'root-favicon-fallback',
