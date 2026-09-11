@@ -13,25 +13,15 @@ export default defineConfig(({ mode }) => {
     base,
     plugins: [
       tailwindcss(),
-      // Tự động chuyển hướng nếu thiếu dấu gạch chéo cuối (ví dụ: /dan-pcn-o-to-tphcm -> /dan-pcn-o-to-tphcm/)
       {
         name: 'trailing-slash-redirect',
         configureServer(server) {
-          const cleanBase = base.replace(/\/+$/, '');
           server.middlewares.use((req, res, next) => {
             const url = req.url || '';
             const [pathname, search] = url.split('?');
-            if (pathname === cleanBase) {
-              const target = base + (search ? `?${search}` : '');
+            if (pathname === '/dan-pcn-o-to-tphcm') {
               res.statusCode = 301;
-              res.setHeader('Location', target);
-              res.end();
-              return;
-            }
-            if (pathname === '' || pathname === '/') {
-              const target = base + (search ? `?${search}` : '');
-              res.statusCode = 302;
-              res.setHeader('Location', target);
+              res.setHeader('Location', '/dan-pcn-o-to-tphcm/' + (search ? `?${search}` : ''));
               res.end();
               return;
             }
@@ -39,21 +29,12 @@ export default defineConfig(({ mode }) => {
           });
         },
         configurePreviewServer(server) {
-          const cleanBase = base.replace(/\/+$/, '');
           server.middlewares.use((req, res, next) => {
             const url = req.url || '';
             const [pathname, search] = url.split('?');
-            if (pathname === cleanBase) {
-              const target = base + (search ? `?${search}` : '');
+            if (pathname === '/dan-pcn-o-to-tphcm') {
               res.statusCode = 301;
-              res.setHeader('Location', target);
-              res.end();
-              return;
-            }
-            if (pathname === '' || pathname === '/') {
-              const target = base + (search ? `?${search}` : '');
-              res.statusCode = 302;
-              res.setHeader('Location', target);
+              res.setHeader('Location', '/dan-pcn-o-to-tphcm/' + (search ? `?${search}` : ''));
               res.end();
               return;
             }

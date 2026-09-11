@@ -104,8 +104,8 @@ body {
 
 @media (max-width: 767px) {
   .hero-scroll-track {
-    height: calc(100vh - 96px);
-    height: calc(100dvh - 96px);
+    height: 100vh;
+    height: 100dvh;
   }
 }
 
@@ -416,7 +416,7 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.75) !important;
     border-radius: 1.75rem !important;
     padding: 1.5rem 1.75rem !important;
-    box-shadow: 
+    box-shadow:
       0 20px 45px -10px rgba(15, 23, 42, 0.1),
       0 0 0 1px rgba(255, 255, 255, 0.6),
       inset 0 1px 2px rgba(255, 255, 255, 0.85) !important;
@@ -549,9 +549,12 @@ html.dark #hero-overlay-content {
    HIỆU ỨNG HUY HIỆU NGHIÊNG QUA NGHIÊNG LẠI (SWAY / TILT ANIMATION)
    ========================================================================== */
 @keyframes tiltSway {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: rotate(-3.5deg);
   }
+
   50% {
     transform: rotate(3.5deg);
   }

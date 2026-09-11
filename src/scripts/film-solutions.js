@@ -29,10 +29,10 @@ export const SOLUTIONS_DATA = {
         ],
         prices: {
           sedan: '9.000.000đ',
-          suv5: '9.800.000đ',
+          suv5: '9.000.000đ',
           suv7: '10.500.000đ',
-          pickup: '9.800.000đ',
-          ev: '9.500.000đ'
+          pickup: '9.000.000đ',
+          ev: '9.000.000đ'
         },
         suitableFor: 'Xe gia đình, di chuyển hàng ngày.',
         fullSpecs: {
@@ -69,10 +69,10 @@ export const SOLUTIONS_DATA = {
         ],
         prices: {
           sedan: '11.400.000đ',
-          suv5: '12.500.000đ',
-          suv7: '13.500.000đ',
-          pickup: '12.500.000đ',
-          ev: '12.000.000đ'
+          suv5: '11.400.000đ',
+          suv7: '12.900.000đ',
+          pickup: '11.400.000đ',
+          ev: '11.400.000đ'
         },
         suitableFor: 'Người thường xuyên di chuyển, ưu tiên sự thoải mái.',
         fullSpecs: {
@@ -109,10 +109,10 @@ export const SOLUTIONS_DATA = {
         ],
         prices: {
           sedan: '14.800.000đ',
-          suv5: '16.200.000đ',
-          suv7: '17.500.000đ',
-          pickup: '16.200.000đ',
-          ev: '15.500.000đ'
+          suv5: '14.800.000đ',
+          suv7: '17.600.000đ',
+          pickup: '14.800.000đ',
+          ev: '14.800.000đ'
         },
         suitableFor: 'Xe cao cấp, người muốn trải nghiệm tốt nhất.',
         fullSpecs: {
