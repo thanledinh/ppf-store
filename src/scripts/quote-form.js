@@ -1,6 +1,8 @@
 
 // Cấu hình Google Apps Script Web App URL (Backend bảo mật trung gian)
-export const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
+export const GOOGLE_SCRIPT_URL =
+  import.meta.env.VITE_GOOGLE_SCRIPT_URL ||
+  'https://script.google.com/macros/s/AKfycbz_VirxF_3ci3gd9wCay9VQm9k7YNCBeOYroyy65OJZkdBaFSWAfzPbILiKPR5kvhwX2g/exec';
 
 // Thời điểm trang tải xong (dùng cho Time-gate check chống bot)
 const pageLoadTimestamp = Date.now();
@@ -443,14 +445,28 @@ export function initQuoteForm() {
       const finalPackage = packageVal || 'Tư vấn tổng quan theo xe';
       const finalSource = packageVal ? `Form Báo Giá (Chọn: ${packageVal})` : 'Form Hero Ưu Đãi 30%';
 
-      // LỚP 6: Chống gửi trùng lặp liên tục trong 3 phút
+      // LỚP 6: Chống gửi trùng lặp liên tục trong 3 phút (vẫn lưu thông tin và chuyển sang /cam-on)
       const isDuplicate = isRecentDuplicate(phoneVal);
+      const origin = window.location.origin;
+      const base = (import.meta.env.BASE_URL || '/dan-pcn-o-to-tphcm/').replace(/\/?$/, '/');
+      const search = window.location.search || '';
+      const targetUrl = `${origin}${base}cam-on/${search}`;
+
       if (isDuplicate) {
+        try {
+          sessionStorage.setItem('sd_lead_name', finalName);
+          sessionStorage.setItem('sd_lead_phone', phoneVal);
+          sessionStorage.setItem('sd_lead_car', finalCar);
+        } catch (e) {}
+
         form.classList.add('hidden');
         if (successBox) successBox.classList.remove('hidden');
         if (successMsg) {
-          successMsg.innerHTML = `Store Detailing đã tiếp nhận số <strong>${phoneVal}</strong> của bạn trước đó. Chuyên viên kỹ thuật đang chuẩn bị gọi điện/Zalo tư vấn ngay!`;
+          successMsg.innerHTML = `Store Detailing đã tiếp nhận số <strong>${phoneVal}</strong> của bạn trước đó. Đang chuyển hướng sang trang xác nhận...`;
         }
+        setTimeout(() => {
+          window.location.assign(targetUrl);
+        }, 300);
         return;
       }
 
@@ -514,17 +530,12 @@ export function initQuoteForm() {
         sessionStorage.setItem('sd_lead_name', finalName);
         sessionStorage.setItem('sd_lead_phone', phoneVal);
         sessionStorage.setItem('sd_lead_car', finalCar);
-        sessionStorage.setItem('sd_lead_package', finalPackage);
       } catch (e) {}
 
       // Chuyển hướng sang trang /cam-on (giữ nguyên UTM / query tracking cho Pixel & Google Ads Conversion)
-      const BASE_URL = (import.meta.env.BASE_URL || '/dan-pcn-o-to-tphcm/').replace(/\/?$/, '/');
-      const searchParams = window.location.search || '';
-      const targetUrl = `${BASE_URL}cam-on/${searchParams}`;
-
       setTimeout(() => {
-        window.location.href = targetUrl;
-      }, 500);
+        window.location.assign(targetUrl);
+      }, 300);
     });
 
     resetBtn?.addEventListener('click', () => {

@@ -112,48 +112,20 @@
             <span class="text-slate-500">Số điện thoại:</span>
             <span id="detail-phone" class="font-bold text-[#ba1b23] tracking-wide">Đang cập nhật</span>
           </div>
-          <div class="flex items-center justify-between py-1 border-b border-slate-200/60">
+          <div class="flex items-center justify-between py-1">
             <span class="text-slate-500">Dòng xe:</span>
             <span id="detail-car" class="font-bold text-slate-900">Tư vấn theo xe</span>
-          </div>
-          <div class="flex items-center justify-between py-1">
-            <span class="text-slate-500">Gói quan tâm:</span>
-            <span id="detail-package" class="font-bold text-slate-900 text-right">3M / Global chính hãng</span>
           </div>
         </div>
       </div>
 
       <!-- Thời gian liên hệ cam kết -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm font-semibold mb-8">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm font-semibold mb-6">
         <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="10" stroke-width="2" />
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
         </svg>
         <span>Chuyên viên kỹ thuật sẽ gọi điện/Zalo tư vấn trong vòng <strong>5 – 10 phút</strong>.</span>
-      </div>
-
-      <!-- 3 Bước Tiếp Theo Minh Bạch -->
-      <div class="text-left border-t border-slate-200/80 pt-6 sm:pt-8 mb-8">
-        <h2 class="text-xs sm:text-sm font-extrabold text-slate-500 uppercase tracking-wider mb-4 text-center sm:text-left">
-          Quy trình hỗ trợ tiếp theo:
-        </h2>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
-          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
-            <div class="text-xs font-black text-[#ba1b23] mb-1">BƯỚC 1</div>
-            <div class="text-xs font-bold text-slate-900">Tư vấn mã film chuẩn</div>
-            <p class="text-[11px] text-slate-600 mt-1 leading-snug">Chuyên viên đối chiếu nhu cầu cản nhiệt và gửi thông số từng mã film.</p>
-          </div>
-          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
-            <div class="text-xs font-black text-[#ba1b23] mb-1">BƯỚC 2</div>
-            <div class="text-xs font-bold text-slate-900">Nhận ưu đãi giảm 20%</div>
-            <p class="text-[11px] text-slate-600 mt-1 leading-snug">Áp dụng giảm trực tiếp + Tặng gói phủ Ceramic full kính xe 2.500.000đ.</p>
-          </div>
-          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
-            <div class="text-xs font-black text-[#ba1b23] mb-1">BƯỚC 3</div>
-            <div class="text-xs font-bold text-slate-900">Đặt lịch thi công</div>
-            <p class="text-[11px] text-slate-600 mt-1 leading-snug">Thi công phòng lạnh tiêu chuẩn, bàn giao xe kèm thẻ bảo hành điện tử.</p>
-          </div>
-        </div>
       </div>
 
       <!-- Cụm Nút Hành Động -->
@@ -200,7 +172,6 @@
         const name = urlParams.get('name') || sessionStorage.getItem('sd_lead_name') || '';
         const phone = urlParams.get('phone') || sessionStorage.getItem('sd_lead_phone') || '';
         const car = urlParams.get('car') || sessionStorage.getItem('sd_lead_car') || '';
-        const pkg = urlParams.get('package') || sessionStorage.getItem('sd_lead_package') || '';
 
         if (name) {
           document.getElementById('lead-name').textContent = 'anh/chị ' + name;
@@ -216,9 +187,6 @@
         }
         if (car && car !== 'Chưa cung cấp') {
           document.getElementById('detail-car').textContent = car;
-        }
-        if (pkg && pkg !== 'Tư vấn tổng quan theo xe') {
-          document.getElementById('detail-package').textContent = pkg;
         }
       } catch (e) {
         console.error('Lead details parse error:', e);
