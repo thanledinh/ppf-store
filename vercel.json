@@ -12,8 +12,13 @@
     },
     {
       "source": "/cam-on",
-      "destination": "/cam-on/",
-      "permanent": true
+      "destination": "/dan-pcn-o-to-tphcm/cam-on/",
+      "permanent": false
+    },
+    {
+      "source": "/cam-on/",
+      "destination": "/dan-pcn-o-to-tphcm/cam-on/",
+      "permanent": false
     },
     {
       "source": "/dan-pcn-o-to-tphcm/cam-on",
@@ -22,10 +27,6 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/cam-on/",
-      "destination": "/cam-on/index.html"
-    },
     {
       "source": "/dan-pcn-o-to-tphcm/cam-on/",
       "destination": "/cam-on/index.html"
