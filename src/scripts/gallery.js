@@ -1,31 +1,20 @@
-/**
- * Store Detailing - Gallery Lightbox Controller
- * Tối ưu hiệu năng: Sử dụng Event Delegation, không forced reflow, cực nhẹ luồng chính
- */
 export function initGallery() {
   const lightbox = document.getElementById('gallery-lightbox');
   if (!lightbox) return;
-
   const mainImg = document.getElementById('lightbox-main-img');
   const titleEl = document.getElementById('lightbox-title');
   const thumbnailsContainer = document.getElementById('lightbox-thumbnails');
   const closeBtn = document.getElementById('lightbox-close');
   const prevBtn = document.getElementById('lightbox-prev');
   const nextBtn = document.getElementById('lightbox-next');
-
   let currentImages = [];
   let currentIndex = 0;
-
-  // Mở Lightbox
   const openLightbox = (title, imagesData) => {
     try {
       currentImages = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
       currentIndex = 0;
       if (titleEl) titleEl.textContent = title || '';
-      
       updateLightboxContent();
-      
-      // Render thumbnails
       if (thumbnailsContainer) {
         thumbnailsContainer.innerHTML = '';
         currentImages.forEach((src, index) => {
@@ -37,7 +26,6 @@ export function initGallery() {
             currentIndex = index;
             updateLightboxContent();
           };
-          
           const img = document.createElement('img');
           img.src = src;
           img.alt = `Thumbnail ${index + 1}`;
@@ -45,25 +33,20 @@ export function initGallery() {
           img.height = 56;
           img.loading = 'lazy';
           img.className = 'w-full h-full object-cover';
-          
           btn.appendChild(img);
           thumbnailsContainer.appendChild(btn);
         });
       }
-
-      // Show lightbox mượt mà không gây forced reflow
       lightbox.classList.remove('hidden');
       window.requestAnimationFrame(() => {
         lightbox.classList.remove('opacity-0');
         lightbox.classList.add('opacity-100');
       });
-      document.body.style.overflow = 'hidden'; // Ngăn cuộn trang
+      document.body.style.overflow = 'hidden'; 
     } catch (e) {
       console.error('Invalid image data', e);
     }
   };
-
-  // Đóng Lightbox
   const closeLightbox = () => {
     lightbox.classList.remove('opacity-100');
     lightbox.classList.add('opacity-0');
@@ -73,12 +56,8 @@ export function initGallery() {
       currentImages = [];
     }, 250);
   };
-
-  // Cập nhật nội dung Lightbox
   const updateLightboxContent = () => {
     if (currentImages.length === 0 || !mainImg) return;
-    
-    // Fade effect cho ảnh chính
     mainImg.style.opacity = '0';
     setTimeout(() => {
       mainImg.src = currentImages[currentIndex];
@@ -86,8 +65,6 @@ export function initGallery() {
         mainImg.style.opacity = '1';
       };
     }, 120);
-
-    // Cập nhật trạng thái thumbnail
     if (thumbnailsContainer) {
       const thumbs = thumbnailsContainer.children;
       for (let i = 0; i < thumbs.length; i++) {
@@ -102,20 +79,16 @@ export function initGallery() {
       }
     }
   };
-
   const nextImage = () => {
     if (currentImages.length === 0) return;
     currentIndex = (currentIndex + 1) % currentImages.length;
     updateLightboxContent();
   };
-
   const prevImage = () => {
     if (currentImages.length === 0) return;
     currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
     updateLightboxContent();
   };
-
-  // Event Delegation cho Gallery Cards - 0ms startup time!
   document.addEventListener('click', (e) => {
     const card = e.target.closest('.gallery-card');
     if (card) {
@@ -124,8 +97,6 @@ export function initGallery() {
       openLightbox(title, imagesData);
     }
   });
-
-  // Hỗ trợ phím Enter/Space cho Accessibility trên Gallery Cards
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       const card = document.activeElement && document.activeElement.closest('.gallery-card');
@@ -137,23 +108,16 @@ export function initGallery() {
       }
     }
   });
-
-  // Gắn sự kiện cho Modal Controls
   if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
   if (nextBtn) nextBtn.addEventListener('click', nextImage);
   if (prevBtn) prevBtn.addEventListener('click', prevImage);
-  
-  // Đóng khi click ra ngoài ảnh
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox || (e.target.closest('.flex-1') === e.target)) {
       closeLightbox();
     }
   });
-
-  // Hỗ trợ phím tắt Keyboard
   document.addEventListener('keydown', (e) => {
     if (lightbox.classList.contains('hidden')) return;
-    
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowRight') nextImage();
     if (e.key === 'ArrowLeft') prevImage();

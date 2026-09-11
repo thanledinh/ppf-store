@@ -1,8 +1,3 @@
-/**
- * Store Detailing - Section 2: Film Solutions & Brand Packages
- * Quản lý tương tác chọn thương hiệu (3M, Global) và hiển thị các gói phim chuẩn thiết kế mockup
- */
-
 export const SOLUTIONS_DATA = {
   '3m': {
     name: '3M',
@@ -224,7 +219,6 @@ export const SOLUTIONS_DATA = {
     ]
   }
 };
-
 export const POSITION_PRICING_DATA = [
   {
     code: '3M Crystalline BLK',
@@ -267,16 +261,12 @@ export const POSITION_PRICING_DATA = [
     kinhLung: '1.300.000đ'
   }
 ];
-
 let currentBrandKey = '3m';
 let currentCarType = 'sedan';
 let currentViewMode = 'package';
-
 export function openSpecModal(packageId) {
   const modal = document.getElementById('film-spec-modal');
   if (!modal) return;
-
-  // Find package data
   let pkgData = null;
   for (const brandKey in SOLUTIONS_DATA) {
     const found = SOLUTIONS_DATA[brandKey].packages.find(p => p.id === packageId);
@@ -285,15 +275,12 @@ export function openSpecModal(packageId) {
       break;
     }
   }
-
   if (!pkgData) return;
-
   const titleEl = document.getElementById('spec-modal-title');
   const tagEl = document.getElementById('spec-modal-tag');
   const brandEl = document.getElementById('spec-modal-brand');
   const priceEl = document.getElementById('spec-modal-price');
   const tableBody = document.getElementById('spec-modal-table');
-
   if (titleEl) titleEl.textContent = `${pkgData.brandDisplay} ${pkgData.brandSub}`;
   if (brandEl) brandEl.textContent = pkgData.fullSpecs.brand;
   const currentPrice = pkgData.prices[currentCarType] || pkgData.prices['sedan'];
@@ -302,7 +289,6 @@ export function openSpecModal(packageId) {
     tagEl.textContent = pkgData.tag;
     tagEl.className = `inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold ${pkgData.tagClass}`;
   }
-
   if (tableBody) {
     const s = pkgData.fullSpecs;
     tableBody.innerHTML = `
@@ -320,11 +306,9 @@ export function openSpecModal(packageId) {
       <tr><td class="py-2 text-xs text-slate-500 font-medium">Bảo hành điện tử</td><td class="py-2 text-xs font-bold text-[#ba1b23]">${s.warranty}</td></tr>
     `;
   }
-
   modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
-
 export function closeSpecModal() {
   const modal = document.getElementById('film-spec-modal');
   if (modal) {
@@ -332,7 +316,6 @@ export function closeSpecModal() {
     document.body.style.overflow = '';
   }
 }
-
 export function initFilmSolutions() {
   const brandTabs = document.querySelectorAll('.brand-filter-tab');
   const carPills = document.querySelectorAll('.car-type-pill');
@@ -344,20 +327,15 @@ export function initFilmSolutions() {
   const tabModePositions = document.getElementById('tab-mode-positions');
   const compareBtn = document.getElementById('compare-all-btn');
   const compareBtnText = document.getElementById('compare-btn-text');
-
   const brandTagNameEl = document.getElementById('brand-tag-name');
   const brandHeadingTitleEl = document.getElementById('brand-heading-title');
   const brandDescTextEl = document.getElementById('brand-desc-text');
   const warrantyTextEl = document.getElementById('brand-warranty-text');
-
-  // Render Bảng giá phụ theo vị trí kính
   function renderPositionTable(activeBrandKey = currentBrandKey) {
     if (!positionTableBody) return;
-
     positionTableBody.innerHTML = POSITION_PRICING_DATA.map((row) => {
       const isBrandMatch = (row.brand === activeBrandKey);
       const rowBgClass = isBrandMatch ? 'bg-red-50/25 ring-1 ring-inset ring-red-200/50' : 'hover:bg-slate-50/70';
-
       return `
         <tr class="transition-colors ${rowBgClass}">
           <td class="py-2.5 sm:py-3 px-4">
@@ -382,11 +360,8 @@ export function initFilmSolutions() {
       `;
     }).join('');
   }
-
-  // Chuyển đổi giữa chế độ Gói full xe và Bảng giá từng vị trí kính
   function setViewMode(mode) {
     currentViewMode = mode;
-
     if (mode === 'positions') {
       if (tabModePackage) {
         tabModePackage.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-700 hover:text-slate-900 cursor-pointer flex items-center gap-1.5";
@@ -397,7 +372,6 @@ export function initFilmSolutions() {
       if (carTabsContainer) carTabsContainer.classList.add('hidden');
       if (packagesContainer) packagesContainer.classList.add('hidden');
       if (positionTableEl) positionTableEl.classList.remove('hidden');
-
       if (brandHeadingTitleEl) {
         brandHeadingTitleEl.innerHTML = 'BẢNG GIÁ<br>DÁN LẺ<br>TỪNG VỊ TRÍ';
       }
@@ -418,7 +392,6 @@ export function initFilmSolutions() {
       if (carTabsContainer) carTabsContainer.classList.remove('hidden');
       if (packagesContainer) packagesContainer.classList.remove('hidden');
       if (positionTableEl) positionTableEl.classList.add('hidden');
-
       const data = SOLUTIONS_DATA[currentBrandKey] || SOLUTIONS_DATA['3m'];
       if (brandHeadingTitleEl) {
         brandHeadingTitleEl.innerHTML = data.heading || 'CÔNG NGHỆ<br>TẠO NÊN<br>SỰ KHÁC BIỆT';
@@ -431,16 +404,12 @@ export function initFilmSolutions() {
       }
     }
   }
-
-  // Wire Tab switcher click
   if (tabModePackage) {
     tabModePackage.addEventListener('click', () => setViewMode('package'));
   }
   if (tabModePositions) {
     tabModePositions.addEventListener('click', () => setViewMode('positions'));
   }
-
-  // Wire "Xem bảng giá vị trí kính" toggle button
   if (compareBtn) {
     compareBtn.addEventListener('click', () => {
       if (currentViewMode === 'positions') {
@@ -450,18 +419,13 @@ export function initFilmSolutions() {
       }
     });
   }
-
-  // Wire modal close buttons
   const modalCloseBtn = document.getElementById('spec-modal-close-btn');
   const modalBackdrop = document.getElementById('spec-modal-backdrop');
   if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeSpecModal);
   if (modalBackdrop) modalBackdrop.addEventListener('click', closeSpecModal);
-
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeSpecModal();
   });
-
-  // Attach click listener for TDS modal
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-open-spec]');
     if (btn) {
@@ -470,17 +434,11 @@ export function initFilmSolutions() {
       if (pkgId) openSpecModal(pkgId);
     }
   });
-
-
-
   if (!packagesContainer) return;
-
   function renderPackages(brandKey, carType = currentCarType) {
     currentBrandKey = brandKey;
     currentCarType = carType;
-
     const data = SOLUTIONS_DATA[brandKey] || SOLUTIONS_DATA['3m'];
-
     if (brandTagNameEl) {
       brandTagNameEl.textContent = data.tag || data.name;
     }
@@ -493,19 +451,16 @@ export function initFilmSolutions() {
     if (warrantyTextEl) {
       warrantyTextEl.textContent = data.warranty;
     }
-
     packagesContainer.innerHTML = data.packages.map((pkg) => {
       const priceVal = pkg.prices[carType] || pkg.prices['sedan'];
       const BASE_URL = (import.meta.env.BASE_URL || '/').replace(/\/?$/, '/');
       const badgeImgSrc = pkg.badgeImg ? (pkg.badgeImg.startsWith('/') ? `${BASE_URL}${pkg.badgeImg.slice(1)}` : pkg.badgeImg) : '';
-
       return `
         <div class="package-card group bg-white rounded-xl lg:rounded-2xl border border-slate-200/90 hover:border-red-300 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden relative shadow-xs">
           <!-- 1. Header image with Brand overlay -->
           <div class="h-36 sm:h-40 xl:h-44 w-full bg-slate-950 relative overflow-hidden flex items-end p-4 select-none shrink-0">
             <img src="${badgeImgSrc}" alt="${pkg.brandDisplay} ${pkg.brandSub}" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" width="450" height="250" />
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent pointer-events-none"></div>
-
             <!-- Title & subtitle overlay (bottom left) -->
             <div class="relative z-10 text-left pr-6">
               <div class="text-2xl xl:text-3xl font-black ${pkg.brand === '3m' ? 'text-[#ba1b23]' : 'text-white'} leading-none tracking-tight">
@@ -518,14 +473,12 @@ export function initFilmSolutions() {
                 ${pkg.subtitle}
               </p>
             </div>
-
             <!-- Tag corner top right -->
             <div class="absolute top-3.5 right-3.5 z-10">
               <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] xl:text-[11px] font-black tracking-wide ${pkg.tagClass} shadow-xs uppercase">
                 ${pkg.tag}
               </span>
             </div>
-
             ${pkg.hasCrown ? `
             <!-- Watermark / Crown bottom right -->
             <div class="absolute bottom-3 right-3 z-10 text-amber-400/80">
@@ -535,9 +488,6 @@ export function initFilmSolutions() {
             </div>
             ` : ''}
           </div>
-
-          
-
           <!-- 3. Price & Suitable For row -->
           <div class="px-4 py-3 flex items-center justify-between gap-3 border-b border-slate-100/60">
             <!-- Left: Price -->
@@ -547,10 +497,8 @@ export function initFilmSolutions() {
                 ${priceVal}
               </div>
             </div>
-
             <!-- Vertical separator -->
             <div class="h-8 w-px bg-slate-200 shrink-0"></div>
-
             <!-- Right: Suitable for -->
             <div class="flex-1 text-left">
               <div class="text-[11px] text-slate-400 font-medium uppercase">Phù hợp với</div>
@@ -559,7 +507,6 @@ export function initFilmSolutions() {
               </div>
             </div>
           </div>
-
           <!-- 4. 2 Action buttons at bottom -->
           <div class="px-3 sm:px-4 py-3.5 pt-2.5 mt-auto">
             <div class="grid grid-cols-2 gap-2 sm:gap-2.5">
@@ -568,7 +515,6 @@ export function initFilmSolutions() {
                 class="inline-flex items-center justify-center py-2.5 px-2 sm:px-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 text-[11px] sm:text-xs xl:text-[13px] font-bold transition-colors cursor-pointer shadow-2xs whitespace-nowrap">
                 <span>Xem chi tiết</span>
               </button>
-
               <!-- Nhận ưu đãi button (Dark black/slate like mockup) -->
               <a href="#form-bao-gia" data-select-package="${pkg.brandDisplay} ${pkg.brandSub}"
                 class="inline-flex items-center justify-center gap-1 sm:gap-1.5 py-2.5 px-2 sm:px-3 rounded-xl bg-[#0f172a] hover:bg-slate-800 text-white text-[11px] sm:text-xs xl:text-[13px] font-bold transition-colors shadow-2xs whitespace-nowrap">
@@ -587,14 +533,12 @@ export function initFilmSolutions() {
       `;
     }).join('');
   }
-
   function updateBrandTabs(activeBrand) {
     brandTabs.forEach((tab) => {
       const bKey = tab.getAttribute('data-brand');
       const isActive = (bKey === activeBrand);
       const indicator = tab.querySelector('.tab-indicator');
       const titleSpan = tab.querySelector('.brand-tab-title');
-
       if (indicator) {
         if (isActive) {
           indicator.classList.remove('hidden');
@@ -602,7 +546,6 @@ export function initFilmSolutions() {
           indicator.classList.add('hidden');
         }
       }
-
       if (isActive) {
         tab.classList.add('active-tab');
         tab.classList.remove('hover:bg-slate-50/60');
@@ -626,12 +569,10 @@ export function initFilmSolutions() {
       }
     });
   }
-
   function updateCarPills(activeCar) {
     carPills.forEach((pill) => {
       const cType = pill.getAttribute('data-cartype');
       const isActive = (cType === activeCar);
-
       if (isActive) {
         pill.className = "car-type-pill active-car flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-[#0f172a] text-white text-[11px] sm:text-xs font-bold shadow-xs whitespace-nowrap transition-colors cursor-pointer";
       } else {
@@ -639,13 +580,10 @@ export function initFilmSolutions() {
       }
     });
   }
-
-  // Brand tabs click
   brandTabs.forEach((tab) => {
     tab.addEventListener('click', () => {
       const brandKey = tab.getAttribute('data-brand');
       if (!brandKey) return;
-
       updateBrandTabs(brandKey);
       renderPackages(brandKey, currentCarType);
       if (currentViewMode === 'positions') {
@@ -653,21 +591,15 @@ export function initFilmSolutions() {
       }
     });
   });
-
-  // Car type pills click
   carPills.forEach((pill) => {
     pill.addEventListener('click', () => {
       const carType = pill.getAttribute('data-cartype');
       if (!carType) return;
-
       updateCarPills(carType);
       renderPackages(currentBrandKey, carType);
     });
   });
-
-  // Initial render: 3M & Sedan
   updateBrandTabs('3m');
   updateCarPills('sedan');
   renderPackages('3m', 'sedan');
 }
-
