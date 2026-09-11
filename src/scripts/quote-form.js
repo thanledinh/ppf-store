@@ -171,10 +171,21 @@ export function triggerConversion(eventName = 'Lead', eventData = {}) {
 /**
  * Gửi dữ liệu về Google Sheets qua Web App URL
  */
+/**
+ * Gửi dữ liệu về Google Sheets qua Web App URL (có timeout 8s chống treo khi mất mạng)
+ */
 async function sendToGoogleSheet(data) {
   if (!GOOGLE_SCRIPT_URL || !GOOGLE_SCRIPT_URL.startsWith('http')) {
-    return;
+    return false;
   }
+
+  // Kiểm tra nếu thiết bị đang offline hoàn toàn
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+    return false;
+  }
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 giây timeout
 
   try {
     const formData = new FormData();
@@ -190,11 +201,38 @@ async function sendToGoogleSheet(data) {
       method: 'POST',
       mode: 'no-cors',
       body: formData,
+      signal: controller.signal,
     });
+    clearTimeout(timeoutId);
+    return true;
   } catch (err) {
-    // Xử lý âm thầm
+    clearTimeout(timeoutId);
+    return false;
   }
 }
+
+/**
+ * Tự động gửi bù các lead chưa đồng bộ khi máy có mạng trở lại
+ */
+async function retryUnsyncedLeads() {
+  try {
+    const localLeads = JSON.parse(localStorage.getItem('sd_leads') || '[]');
+    const unsynced = localLeads.filter((l) => !l.synced);
+    if (unsynced.length === 0) return;
+
+    for (const lead of unsynced) {
+      const ok = await sendToGoogleSheet(lead);
+      if (ok) {
+        lead.synced = true;
+      }
+    }
+    localStorage.setItem('sd_leads', JSON.stringify(localLeads));
+  } catch (e) {}
+}
+
+window.addEventListener('online', () => {
+  retryUnsyncedLeads();
+});
 
 /**
  * Điều phối dữ liệu: Bắt UTM Ads, lưu LocalStorage và gửi an toàn qua Google Apps Script
@@ -210,6 +248,7 @@ async function dispatchLead(data) {
     utm_term: utm.utm_term || '',
     utm_content: utm.utm_content || '',
     ad_click_id: utm.gclid || utm.fbclid || utm.ttclid || '',
+    synced: false,
   };
 
   // 1. Luôn lưu bản sao vào localStorage máy để không bao giờ sợ mất số
@@ -226,14 +265,29 @@ async function dispatchLead(data) {
     source: fullPayload.source,
   });
 
-  // 3. Ghi nhận số điện thoại để chống spam lặp trong 3 phút
-  recordSubmittedPhone(fullPayload.phone);
+  // 3. Gửi dữ liệu qua Google Apps Script (có timeout 8s)
+  const isSuccess = await sendToGoogleSheet(fullPayload);
 
-  // 4. Ghi nhận lượt gửi vào bộ đếm giới hạn 5 lần / 1 phút
-  recordSubmissionAttempt();
+  if (isSuccess) {
+    // Đánh dấu lead đã đồng bộ thành công trong localStorage
+    try {
+      const localLeads = JSON.parse(localStorage.getItem('sd_leads') || '[]');
+      const last = localLeads[localLeads.length - 1];
+      if (last) last.synced = true;
+      localStorage.setItem('sd_leads', JSON.stringify(localLeads));
+    } catch (e) {}
 
-  // 5. Gửi an toàn về Google Apps Script (Google sẽ lưu Sheet và tự động bắn Telegram)
-  await sendToGoogleSheet(fullPayload);
+    // Ghi nhận số điện thoại để chống spam lặp trong 3 phút
+    recordSubmittedPhone(fullPayload.phone);
+
+    // Ghi nhận lượt gửi vào bộ đếm giới hạn 5 lần / 1 phút
+    recordSubmissionAttempt();
+
+    return { ok: true };
+  } else {
+    // Thất bại do mạng: Không ghi nhận trùng lặp để khách có thể bấm thử lại
+    return { ok: false, reason: 'network' };
+  }
 }
 
 export function initQuoteForm() {
@@ -413,7 +467,7 @@ export function initQuoteForm() {
         `;
       }
 
-      await dispatchLead({
+      const res = await dispatchLead({
         name: finalName,
         phone: phoneVal,
         car: finalCar,
@@ -422,7 +476,27 @@ export function initQuoteForm() {
         source: finalSource,
       });
 
-      // Ẩn form và hiện thông báo cảm ơn
+      // Nếu gặp lỗi mạng / Google Script không phản hồi
+      if (!res.ok) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `
+            <span>Thử gửi lại</span>
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          `;
+        }
+        if (phoneError) {
+          phoneError.innerHTML = `Đường truyền mạng gián đoạn. Vui lòng bấm <strong>Thử gửi lại</strong> hoặc gọi Hotline: <a href="tel:0378788898" class="underline font-bold text-red-600">0378 78 88 98</a> để được hỗ trợ ngay!`;
+          phoneError.classList.remove('hidden');
+        }
+        phoneInput?.classList.add('border-red-500');
+        phoneInput?.focus();
+        return;
+      }
+
+      // Ẩn form và hiện thông báo cảm ơn (khi gửi thành công)
       form.classList.add('hidden');
       if (successBox) {
         successBox.classList.remove('hidden');
@@ -531,7 +605,7 @@ export function initQuoteForm() {
         submitBtn.innerHTML = `<span>Đang tiếp nhận...</span>`;
       }
 
-      await dispatchLead({
+      const res = await dispatchLead({
         name: finalName,
         phone: phoneVal,
         car: finalCar,
@@ -539,6 +613,16 @@ export function initQuoteForm() {
         viewed_all: true,
         source: 'Form chân trang',
       });
+
+      if (!res.ok) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `<span>Thử gửi lại</span>`;
+        }
+        alert('Đường truyền mạng gián đoạn không thể gửi thông tin. Quý khách vui lòng bấm thử lại hoặc gọi Hotline tư vấn ngay: 0378 78 88 98');
+        phoneEl?.focus();
+        return;
+      }
 
       const greeting = nameVal ? `anh/chị <strong>${nameVal}</strong>` : `<strong>Quý khách</strong>`;
       easterForm.innerHTML = `
