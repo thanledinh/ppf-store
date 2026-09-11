@@ -443,7 +443,7 @@ export function initQuoteForm() {
       const finalName = nameVal || 'Khách hàng';
       const finalCar = carVal || lastViewedCarType || 'Chưa cung cấp';
       const finalPackage = packageVal || 'Tư vấn tổng quan theo xe';
-      const finalSource = packageVal ? `Form Báo Giá (Chọn: ${packageVal})` : 'Form Hero Ưu Đãi 30%';
+      const finalSource = packageVal ? `Form Báo Giá (Chọn: ${packageVal})` : 'Form Hero Ưu Đãi 20%';
 
       // LỚP 6: Chống gửi trùng lặp liên tục trong 3 phút (vẫn lưu thông tin và chuyển sang /cam-on)
       const isDuplicate = isRecentDuplicate(phoneVal);

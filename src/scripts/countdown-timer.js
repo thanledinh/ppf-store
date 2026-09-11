@@ -12,20 +12,25 @@ export function initCountdownTimer() {
   const minutesEl = document.getElementById('countdown-minutes');
   const secondsEl = document.getElementById('countdown-seconds');
 
-  // Hạn kết thúc chương trình ưu đãi: 23:59:59 30/09/2026
+  // Hạn kết thúc chương trình ưu đãi: Lấy từ data-deadline hoặc mặc định 23:59:59 30/09/2026
   const deadlineStr = container.dataset.deadline || '2026-09-30T23:59:59+07:00';
-  const targetDate = new Date(deadlineStr).getTime();
+  let targetDate = new Date(deadlineStr).getTime();
+  const now = Date.now();
+
+  // Nếu deadline đã qua (hoặc lỗi cấu hình), tự động tính đến 23:59:59 ngày cuối tháng hiện tại
+  if (isNaN(targetDate) || targetDate <= now) {
+    const current = new Date();
+    targetDate = new Date(current.getFullYear(), current.getMonth() + 1, 0, 23, 59, 59).getTime();
+  }
 
   function update() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+    const currentNow = Date.now();
+    let distance = targetDate - currentNow;
 
     if (distance <= 0) {
-      if (daysEl) daysEl.textContent = '00';
-      if (hoursEl) hoursEl.textContent = '00';
-      if (minutesEl) minutesEl.textContent = '00';
-      if (secondsEl) secondsEl.textContent = '00';
-      return;
+      const current = new Date();
+      targetDate = new Date(current.getFullYear(), current.getMonth() + 1, 0, 23, 59, 59).getTime();
+      distance = targetDate - currentNow;
     }
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));

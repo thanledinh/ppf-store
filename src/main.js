@@ -16,16 +16,16 @@ import { initKolVideo } from './scripts/kol-video.js';
 document.addEventListener('DOMContentLoaded', () => {
   console.log('⚡ Store Detailing Landing Page Initialized');
 
-  // Khởi động Smart Header, Hero Canvas & Lead Form (Above-the-fold)
+  // Khởi động Smart Header, Hero Canvas, Countdown & Lead Form (Above-the-fold)
   initSmartHeader();
   initCarScrollCanvas();
+  try { initCountdownTimer(); } catch(e) { console.error(e); }
   try { initQuoteForm(); } catch(e) { console.error(e); }
 
   // Các module phía dưới màn hình (Below-the-fold): Khởi động khi trình duyệt rảnh rỗi
   // Tránh chiếm dụng luồng chính (Main Thread) lúc vừa tải trang
   const initDeferredModules = () => {
     try { initFilmSolutions(); } catch(e) { console.error(e); }
-    try { initCountdownTimer(); } catch(e) { console.error(e); }
     try { initFloatingContact(); } catch(e) { console.error(e); }
     try { initFaqAccordion(); } catch(e) { console.error(e); }
     try { initKolVideo(); } catch(e) { console.error(e); }
