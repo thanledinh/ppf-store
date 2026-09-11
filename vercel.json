@@ -1,0 +1,24 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/dan-pcn-o-to-tphcm/",
+      "permanent": false
+    },
+    {
+      "source": "/dan-pcn-o-to-tphcm",
+      "destination": "/dan-pcn-o-to-tphcm/",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/dan-pcn-o-to-tphcm/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/dan-pcn-o-to-tphcm/:path*",
+      "destination": "/:path*"
+    }
+  ]
+}

@@ -60,6 +60,21 @@ export default defineConfig(({ mode }) => {
           });
         },
       },
+      // Tạo bản sao index.html tại dist/dan-pcn-o-to-tphcm/index.html cho các nền tảng static hosting
+      {
+        name: 'copy-subpath-index',
+        closeBundle() {
+          const distDir = path.resolve(process.cwd(), 'dist');
+          const subDir = path.resolve(distDir, 'dan-pcn-o-to-tphcm');
+          if (fs.existsSync(distDir)) {
+            fs.mkdirSync(subDir, { recursive: true });
+            const indexPath = path.join(distDir, 'index.html');
+            if (fs.existsSync(indexPath)) {
+              fs.copyFileSync(indexPath, path.join(subDir, 'index.html'));
+            }
+          }
+        },
+      },
     ],
     server: {
       port: 3000,
