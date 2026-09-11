@@ -167,11 +167,12 @@ export function initCarScrollCanvas() {
   // 3. Tải ngay frame 0 làm ảnh nền tức thì
   function loadInitialFrame(forMobile) {
     const targetFrames = forMobile ? mobileFrames : desktopFrames;
+    if (targetFrames[0]) return;
     const firstFrame = new Image();
     firstFrame.src = getFramePath(0, forMobile);
     firstFrame.onload = () => {
       targetFrames[0] = firstFrame;
-      resizeCanvas();
+      renderFrame(0);
     };
   }
 
