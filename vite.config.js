@@ -84,7 +84,6 @@ export default defineConfig(({ mode }) => {
           });
         },
       },
-      // Tạo bản sao index.html và cam-on tại dist/dan-pcn-o-to-tphcm/ cho các nền tảng static hosting
       {
         name: 'copy-subpath-index',
         closeBundle() {
@@ -95,6 +94,10 @@ export default defineConfig(({ mode }) => {
             const indexPath = path.join(distDir, 'index.html');
             if (fs.existsSync(indexPath)) {
               fs.copyFileSync(indexPath, path.join(subDir, 'index.html'));
+              fs.writeFileSync(
+                indexPath,
+                '<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><title>Store Detailing</title><meta http-equiv="refresh" content="0;url=/dan-pcn-o-to-tphcm/"><script>location.replace(\'/dan-pcn-o-to-tphcm/\'+location.search+location.hash);</script></head><body></body></html>'
+              );
             }
             const camonDistDir = path.join(distDir, 'cam-on');
             const camonSubDir = path.join(subDir, 'cam-on');
@@ -103,6 +106,10 @@ export default defineConfig(({ mode }) => {
               const camonIndex = path.join(camonDistDir, 'index.html');
               if (fs.existsSync(camonIndex)) {
                 fs.copyFileSync(camonIndex, path.join(camonSubDir, 'index.html'));
+                fs.writeFileSync(
+                  camonIndex,
+                  '<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><title>Store Detailing</title><meta http-equiv="refresh" content="0;url=/dan-pcn-o-to-tphcm/cam-on/"><script>location.replace(\'/dan-pcn-o-to-tphcm/cam-on/\'+location.search+location.hash);</script></head><body></body></html>'
+                );
               }
             }
           }
