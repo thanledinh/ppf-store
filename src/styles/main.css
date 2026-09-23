@@ -459,6 +459,11 @@ body {
   -webkit-text-fill-color: #020617 !important;
 }
 
+#hero-overlay-content .hero-h1 .hero-text-red {
+  color: #ba1b23 !important;
+  -webkit-text-fill-color: #ba1b23 !important;
+}
+
 #hero-overlay-content .hero-brand-price {
   color: #0f172a !important;
   -webkit-text-fill-color: #0f172a !important;
