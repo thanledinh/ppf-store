@@ -9,9 +9,21 @@ export function initGallery() {
   const nextBtn = document.getElementById('lightbox-next');
   let currentImages = [];
   let currentIndex = 0;
+
+  const resolveAssetUrl = (url) => {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url;
+    const base = import.meta.env.BASE_URL || '/';
+    const cleanUrl = url.startsWith('/') ? url.slice(1) : url;
+    const cleanBase = base.endsWith('/') ? base : base + '/';
+    if (url.startsWith(cleanBase)) return url;
+    return cleanBase + cleanUrl;
+  };
+
   const openLightbox = (title, imagesData) => {
     try {
-      currentImages = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
+      const parsed = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
+      currentImages = (Array.isArray(parsed) ? parsed : []).map(resolveAssetUrl);
       currentIndex = 0;
       if (titleEl) titleEl.textContent = title || '';
       updateLightboxContent();

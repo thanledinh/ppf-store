@@ -827,6 +827,16 @@ let currentBrandKey = 'zappa';
 let currentCarType = 'sedan';
 let currentViewMode = 'package';
 
+const resolveAssetUrl = (url) => {
+  if (!url) return '';
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url;
+  const base = import.meta.env.BASE_URL || '/';
+  const cleanUrl = url.startsWith('/') ? url.slice(1) : url;
+  const cleanBase = base.endsWith('/') ? base : base + '/';
+  if (url.startsWith(cleanBase)) return url;
+  return cleanBase + cleanUrl;
+};
+
 export function openSpecModal(packageId) {
   const modal = document.getElementById('film-spec-modal');
   if (!modal) return;
@@ -853,6 +863,11 @@ export function openSpecModal(packageId) {
   if (priceEl) {
     const currentPrice = pkgData.prices[currentCarType] || pkgData.prices.sedan;
     priceEl.textContent = currentPrice;
+  }
+  const imgEl = document.getElementById('spec-modal-img');
+  if (imgEl && pkgData.badgeImg) {
+    imgEl.src = resolveAssetUrl(pkgData.badgeImg);
+    imgEl.alt = `Cuộn phim PPF ${pkgData.brandDisplay} ${pkgData.brandSub}`;
   }
   if (tableBody) {
     const specs = [
@@ -1004,61 +1019,70 @@ export function initFilmSolutions() {
     container.innerHTML = packages.map((pkg) => {
       const price = pkg.prices[carType] || pkg.prices.sedan;
       const specsHtml = pkg.specs.map(s => `
-        <div class="flex items-center gap-2 p-2 rounded-xl bg-slate-50 border border-slate-100">
-          <div class="w-2 h-2 rounded-full bg-[#ba1b23] shrink-0"></div>
+        <div class="flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-slate-50 border border-slate-100">
+          <div class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#ba1b23] shrink-0"></div>
           <div class="leading-tight min-w-0">
-            <div class="text-xs font-black text-slate-900 truncate">${s.label}</div>
-            <div class="text-[10px] text-slate-500 truncate">${s.sub}</div>
+            <div class="text-[10px] sm:text-xs font-black text-slate-900 truncate">${s.label}</div>
+            <div class="text-[9px] sm:text-[10px] text-slate-500 truncate">${s.sub}</div>
           </div>
         </div>
       `).join('');
 
       const giftsHtml = pkg.gifts.map(g => `
-        <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">
-          <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <span class="inline-flex items-center gap-1 text-[9px] sm:text-[11px] font-bold text-emerald-700 bg-emerald-50 px-1.5 sm:px-2 py-0.5 rounded sm:rounded-md border border-emerald-100 truncate max-w-full">
+          <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
           </svg>
-          <span>${g}</span>
+          <span class="truncate">${g}</span>
         </span>
       `).join('');
 
       return `
-        <div class="relative flex flex-col justify-between bg-white rounded-2xl border ${pkg.hasCrown ? 'border-red-200 shadow-md ring-1 ring-red-100' : 'border-slate-200/90 shadow-xs'} p-4 sm:p-5 hover:shadow-lg transition-all">
-          ${pkg.hasCrown ? '<div class="absolute -top-3 right-4 px-2.5 py-0.5 bg-[#ba1b23] text-white text-[10px] font-black uppercase tracking-wider rounded-full shadow-xs">Bán Chạy</div>' : ''}
-          
+        <div class="group/card relative flex flex-col justify-between bg-white rounded-xl sm:rounded-2xl border ${pkg.hasCrown ? 'border-red-200 shadow-md ring-1 ring-red-100' : 'border-slate-200/90 shadow-xs'} p-2.5 sm:p-5 hover:shadow-lg transition-all">
+          ${pkg.hasCrown ? '<div class="absolute -top-2.5 sm:-top-3 right-2 sm:right-4 px-1.5 sm:px-2.5 py-0.5 bg-[#ba1b23] text-white text-[9px] sm:text-[10px] font-black uppercase tracking-wider rounded-full shadow-xs z-10">Bán Chạy</div>' : ''}
+
           <div>
-            <div class="flex items-start justify-between gap-2 mb-2">
-              <div>
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">${pkg.brandDisplay}</span>
-                <h3 class="text-lg sm:text-xl font-black text-slate-950 leading-tight">${pkg.brandSub}</h3>
+            <!-- Ảnh cuộn phim chính hãng -->
+            <div class="relative w-full aspect-[16/9] rounded-lg sm:rounded-xl overflow-hidden bg-slate-100 border border-slate-200/80 mb-2 sm:mb-3.5 shadow-2xs group-hover/card:border-red-200 transition-colors">
+              <img src="${resolveAssetUrl(pkg.badgeImg)}" alt="Cuộn phim PPF ${pkg.brandDisplay} ${pkg.brandSub}"
+                width="400" height="225" loading="lazy" decoding="async"
+                class="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500" />
+              <div class="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 px-1.5 sm:px-2 py-0.5 rounded sm:rounded-md text-[9px] sm:text-[10px] font-black uppercase tracking-wider shadow-xs ${pkg.tagClass}">
+                ${pkg.tag}
               </div>
-              <span class="px-2 py-0.5 rounded-md text-[10px] font-black uppercase ${pkg.tagClass}">${pkg.tag}</span>
             </div>
 
-            <p class="text-xs text-slate-600 mb-3 min-h-[32px] leading-relaxed">${pkg.subtitle}</p>
-
-            <div class="flex items-baseline gap-1.5 mb-4 pb-3 border-b border-slate-100">
-              <span class="text-xs text-slate-500 font-medium">Trọn gói:</span>
-              <span class="text-2xl sm:text-3xl font-black text-[#ba1b23] tracking-tight">${price}</span>
+            <div class="flex items-start justify-between gap-1 mb-1 sm:mb-1.5">
+              <div class="min-w-0">
+                <span class="text-[9px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block truncate">${pkg.brandDisplay}</span>
+                <h3 class="text-sm min-[380px]:text-base sm:text-xl font-black text-slate-950 leading-tight truncate">${pkg.brandSub}</h3>
+              </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-2 mb-4">
+            <p class="text-[10px] sm:text-xs text-slate-600 mb-2 sm:mb-3 line-clamp-2 h-[28px] sm:h-[32px] leading-tight sm:leading-relaxed overflow-hidden">${pkg.subtitle}</p>
+
+            <div class="flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-1.5 mb-2 sm:mb-4 pb-2 sm:pb-3 border-b border-slate-100">
+              <span class="text-[10px] sm:text-xs text-slate-500 font-medium">Trọn gói:</span>
+              <span class="text-sm min-[360px]:text-base sm:text-2xl lg:text-3xl font-black text-[#ba1b23] tracking-tight">${price}</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 mb-2 sm:mb-4">
               ${specsHtml}
             </div>
 
-            <div class="mb-4 flex flex-wrap gap-1.5">
+            <div class="mb-2 sm:mb-4 flex flex-wrap gap-1 sm:gap-1.5">
               ${giftsHtml}
             </div>
           </div>
 
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2 mt-auto">
+          <div class="pt-2 sm:pt-3 border-t border-slate-100 flex items-center justify-between gap-1.5 sm:gap-2 mt-auto">
             <button type="button" data-open-spec="${pkg.id}"
-              class="w-1/2 py-2 px-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs transition-colors cursor-pointer text-center">
+              class="flex-1 py-1.5 sm:py-2 px-1 sm:px-3 rounded-lg sm:rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-[10px] sm:text-xs transition-colors cursor-pointer text-center truncate">
               Thông số
             </button>
             <a href="#form-bao-gia" data-select-package="${pkg.brandDisplay} ${pkg.brandSub}"
-              class="w-1/2 py-2 px-3 rounded-xl bg-[#ba1b23] hover:bg-[#99141b] text-white font-bold text-xs transition-colors shadow-2xs text-center">
-              Nhận ưu đãi
+              class="flex-1 py-1.5 sm:py-2 px-1 sm:px-3 rounded-lg sm:rounded-xl bg-[#ba1b23] hover:bg-[#99141b] text-white font-bold text-[10px] sm:text-xs transition-colors shadow-2xs text-center truncate">
+              Báo giá
             </a>
           </div>
         </div>

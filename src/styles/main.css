@@ -425,11 +425,14 @@ body {
 
 @media (max-width: 767px) {
   #hero-overlay-content .hero-glass-panel {
-    padding: 1.25rem 1.25rem 1.35rem 1.25rem !important;
-    border-radius: 1.5rem !important;
-    background: rgba(255, 255, 255, 0.42) !important;
+    padding: 1.1rem 1rem 1.25rem 1rem !important;
+    border-radius: 1.35rem !important;
+    background: rgba(255, 255, 255, 0.45) !important;
     backdrop-filter: blur(18px) saturate(180%) !important;
     -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    box-sizing: border-box !important;
   }
 }
 

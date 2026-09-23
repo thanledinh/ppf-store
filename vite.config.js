@@ -66,17 +66,31 @@ export default defineConfig(({ mode }) => {
           });
         },
       },
-      // Phục vụ favicon.svg tại root domain (tránh 404 khi browser request root)
+      // Phục vụ tài nguyên public tại root domain (tránh 404 khi browser request root path như /sanpham/, /favicon.svg,...)
       {
-        name: 'root-favicon-fallback',
+        name: 'root-public-fallback',
         configureServer(server) {
           server.middlewares.use((req, res, next) => {
-            const cleanUrl = (req.url || '').split('?')[0];
-            if (cleanUrl === '/favicon.svg' || cleanUrl === '/favicon.ico') {
-              const faviconPath = path.resolve(process.cwd(), 'public/favicon.svg');
-              if (fs.existsSync(faviconPath)) {
-                res.setHeader('Content-Type', 'image/svg+xml');
-                res.end(fs.readFileSync(faviconPath));
+            const cleanUrl = decodeURIComponent((req.url || '').split('?')[0]);
+            if (cleanUrl && cleanUrl !== '/' && !cleanUrl.startsWith('/@') && !cleanUrl.startsWith('/src/')) {
+              const relPath = cleanUrl.replace(/^\/+/, '');
+              const publicFilePath = path.resolve(process.cwd(), 'public', relPath);
+              if (fs.existsSync(publicFilePath) && fs.statSync(publicFilePath).isFile()) {
+                const ext = path.extname(publicFilePath).toLowerCase();
+                const mimeTypes = {
+                  '.webp': 'image/webp',
+                  '.png': 'image/png',
+                  '.jpg': 'image/jpeg',
+                  '.jpeg': 'image/jpeg',
+                  '.svg': 'image/svg+xml',
+                  '.mp4': 'video/mp4',
+                  '.ico': 'image/x-icon',
+                  '.json': 'application/json',
+                };
+                if (mimeTypes[ext]) {
+                  res.setHeader('Content-Type', mimeTypes[ext]);
+                }
+                fs.createReadStream(publicFilePath).pipe(res);
                 return;
               }
             }
@@ -89,6 +103,7 @@ export default defineConfig(({ mode }) => {
         closeBundle() {
           const distDir = path.resolve(process.cwd(), 'dist');
           const subDir = path.resolve(distDir, 'dan-ppf-o-to-tphcm');
+          const publicDir = path.resolve(process.cwd(), 'public');
           if (fs.existsSync(distDir)) {
             fs.mkdirSync(subDir, { recursive: true });
             const indexPath = path.join(distDir, 'index.html');
@@ -110,6 +125,16 @@ export default defineConfig(({ mode }) => {
                   camonIndex,
                   '<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><title>Store Detailing</title><meta http-equiv="refresh" content="0;url=/dan-ppf-o-to-tphcm/cam-on/"><script>location.replace(\'/dan-ppf-o-to-tphcm/cam-on/\'+location.search+location.hash);</script></head><body></body></html>'
                 );
+              }
+            }
+            if (fs.existsSync(publicDir)) {
+              const items = fs.readdirSync(publicDir);
+              for (const item of items) {
+                const srcItem = path.join(publicDir, item);
+                const destItem = path.join(subDir, item);
+                if (!fs.existsSync(destItem)) {
+                  fs.cpSync(srcItem, destItem, { recursive: true });
+                }
               }
             }
           }
