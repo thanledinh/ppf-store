@@ -7,9 +7,11 @@ import { initCountdownTimer } from './scripts/countdown-timer.js';
 import { initFaqAccordion } from './scripts/faq-accordion.js';
 import { initKolVideo } from './scripts/kol-video.js';
 import { initGallery } from './scripts/gallery.js';
+import { initSmoothScroll } from './scripts/smooth-scroll.js';
 document.addEventListener('DOMContentLoaded', () => {
   console.log('⚡ Store Detailing Landing Page Initialized');
   initSmartHeader();
+  try { initSmoothScroll(); } catch(e) { console.error(e); }
   try { initQuoteForm(); } catch(e) { console.error(e); }
   let carCanvasStarted = false;
   const startCarCanvas = () => {

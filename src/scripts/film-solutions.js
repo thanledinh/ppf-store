@@ -893,6 +893,7 @@ export function openSpecModal(packageId) {
   modal.classList.remove('hidden');
   modal.classList.add('flex');
   document.body.style.overflow = 'hidden';
+  window.lenis?.stop();
 }
 
 export function closeSpecModal() {
@@ -901,6 +902,7 @@ export function closeSpecModal() {
   modal.classList.add('hidden');
   modal.classList.remove('flex');
   document.body.style.overflow = '';
+  window.lenis?.start();
 }
 
 export function initFilmSolutions() {

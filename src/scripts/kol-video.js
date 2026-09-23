@@ -25,6 +25,7 @@ export function initKolVideo() {
       modal.classList.add('flex');
       modalVideo.src = videoSrc;
       document.body.style.overflow = 'hidden';
+      window.lenis?.stop();
       modalVideo.play().then(() => {
         loader.classList.add('hidden');
       }).catch(err => {
@@ -39,6 +40,7 @@ export function initKolVideo() {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
     document.body.style.overflow = '';
+    window.lenis?.start();
   };
   if (modalClose) {
     modalClose.addEventListener('click', closeModal);

@@ -27,7 +27,7 @@ body {
   }
 
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     font-family: "Google Sans Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-stretch: 100%;
     font-optical-sizing: auto;
