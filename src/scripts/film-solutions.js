@@ -275,7 +275,7 @@ export const SOLUTIONS_DATA = {
         gifts: ['PPF nội thất', 'Phủ ceramic PPF', 'Tẩy ố + ceramic kính'],
         suitableFor: 'Xe mới cần bảo vệ lớp sơn zin với thương hiệu 3M danh tiếng toàn cầu.',
         fullSpecs: {
-          brand: '3M (Hoa Kỳ)',
+          brand: '3M',
           series: '3M 50 Gloss',
           tech: 'Màng TPU Aliphatic quang học cao cấp chống ngả vàng',
           thickness: '7.3 mil',
@@ -314,7 +314,7 @@ export const SOLUTIONS_DATA = {
         gifts: ['PPF nội thất 11tr', 'Ceramic PPF 6tr', 'PPF bệ bước chân', 'Tẩy ố + ceramic kính', '2 voucher vệ sinh'],
         suitableFor: 'Xe sang, xe cao cấp cần bảo vệ nước sơn zin hoàn hảo cùng trọn bộ quà 24.500.000đ.',
         fullSpecs: {
-          brand: '3M (Hoa Kỳ)',
+          brand: '3M',
           series: '3M 100 Gloss',
           tech: 'Màng TPU Aliphatic quang học cao cấp 100% không ngả vàng',
           thickness: '7.5 mil',
@@ -353,7 +353,7 @@ export const SOLUTIONS_DATA = {
         gifts: ['PPF nội thất 11tr', 'Ceramic PPF 6tr', 'PPF bệ bước chân', 'Tẩy ố + ceramic kính', '2 voucher vệ sinh'],
         suitableFor: 'Chủ xe ưu tiên độ bóng sâu tuyệt mỹ và khả năng chống ố bẩn bền bỉ.',
         fullSpecs: {
-          brand: '3M (Hoa Kỳ)',
+          brand: '3M',
           series: '3M 150 Gloss',
           tech: 'Màng TPU quang học đa tầng tăng cường liên kết',
           thickness: '7.5 mil',
@@ -392,9 +392,9 @@ export const SOLUTIONS_DATA = {
         gifts: ['PPF nội thất 11tr', 'Ceramic PPF 6tr', 'PPF bệ bước chân', 'Tẩy ố + ceramic kính', '2 voucher vệ sinh'],
         suitableFor: 'Siêu xe, xe thể thao, dòng xe hạng sang đòi hỏi tiêu chuẩn bảo vệ đỉnh cao nhất.',
         fullSpecs: {
-          brand: '3M (Hoa Kỳ)',
+          brand: '3M',
           series: '3M 200 Gloss',
-          tech: 'TPU Aliphatic thế hệ tân tiến nhất từ tập đoàn 3M Hoa Kỳ',
+          tech: 'TPU Aliphatic thế hệ tân tiến nhất từ tập đoàn 3M',
           thickness: '7.9 mil',
           selfHealing: 'Tự phục hồi tức thì vết xước dăm khi gặp nhiệt',
           glossLevel: '>98 GU độ phản chiếu như pha lê',
