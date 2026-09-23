@@ -20,6 +20,7 @@ dist-ssr
 *.local.js
 leads.csv
 leads.json
+scratch/
 
 # Editor directories and files
 .vscode/*
