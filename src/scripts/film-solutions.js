@@ -4,7 +4,7 @@ export const SOLUTIONS_DATA = {
     tag: 'ZAPPA PPF',
     warranty: '5 - 10 năm',
     heading: 'HỆ SINH THÁI PPF<br>ZAPPA TPU ĐA DẠNG<br>DẢI SẢN PHẨM RỘNG NHẤT',
-    desc: 'Dải sản phẩm rộng nhất — 18,9 đến 99 triệu, bảo hành 5–10 năm. Đa dạng độ dày từ 7.5 mil đến 13.5 mil bọc giáp tối thượng, có tặng kèm gói bảo hiểm PPF độc quyền.',
+    desc: 'Dải sản phẩm rộng nhất — từ 18.900.000đ đến 99.000.000đ, bảo hành 5–10 năm. Đa dạng độ dày từ 7.5 mil đến 13.5 mil bọc giáp tối thượng, có tặng kèm gói bảo hiểm PPF độc quyền.',
     packages: [
       {
         id: 'zappa-1368',
@@ -247,7 +247,7 @@ export const SOLUTIONS_DATA = {
     tag: '3M PPF',
     warranty: '5 - 10 năm',
     heading: 'CÔNG NGHỆ PPF<br>3M SCOTCHGARD<br>ĐỈNH CAO THẾ GIỚI',
-    desc: 'Phân khúc cao cấp nhất — 38 đến 110 triệu, bảo hành 5–10 năm. Màng TPU Aliphatic quang học tự phục hồi vết xước nhiệt, chống đá văng và bảo vệ nước sơn nguyên bản bền bỉ.',
+    desc: 'Phân khúc cao cấp nhất — từ 38.000.000đ đến 110.000.000đ, bảo hành 5–10 năm. Màng TPU Aliphatic quang học tự phục hồi vết xước nhiệt, chống đá văng và bảo vệ nước sơn nguyên bản bền bỉ.',
     packages: [
       {
         id: '3m-50-gloss',
@@ -312,7 +312,7 @@ export const SOLUTIONS_DATA = {
           ev: '69.000.000đ'
         },
         gifts: ['PPF nội thất 11tr', 'Ceramic PPF 6tr', 'PPF bệ bước chân', 'Tẩy ố + ceramic kính', '2 voucher vệ sinh'],
-        suitableFor: 'Xe sang, xe cao cấp cần bảo vệ nước sơn zin hoàn hảo cùng trọn bộ quà 24.5 triệu.',
+        suitableFor: 'Xe sang, xe cao cấp cần bảo vệ nước sơn zin hoàn hảo cùng trọn bộ quà 24.500.000đ.',
         fullSpecs: {
           brand: '3M (Hoa Kỳ)',
           series: '3M 100 Gloss',
@@ -412,7 +412,7 @@ export const SOLUTIONS_DATA = {
     tag: 'TECKWRAP PPF',
     warranty: '4 - 7 năm',
     heading: 'PPF TECKWRAP QUỐC TẾ<br>TẦM TRUNG CHẤT LƯỢNG CAO<br>7 MÃ SẢN PHẨM CHUYÊN BIỆT',
-    desc: 'Tầm trung, 7 mã sản phẩm — 25 đến 45 triệu, bảo hành 4–7 năm. Thương hiệu uy tín thế giới với độ dẻo dai cao, bám dính chắc chắn và chống trầy xước va quẹt hoàn hảo.',
+    desc: 'Tầm trung, 7 mã sản phẩm — từ 25.000.000đ đến 45.000.000đ, bảo hành 4–7 năm. Thương hiệu uy tín thế giới với độ dẻo dai cao, bám dính chắc chắn và chống trầy xước va quẹt hoàn hảo.',
     packages: [
       {
         id: 'teckwrap-v75',
@@ -694,7 +694,7 @@ export const SOLUTIONS_DATA = {
     tag: 'FELIX PPF',
     warranty: '3 năm',
     heading: 'PPF FELIX TPU<br>LỰA CHỌN PHỔ THÔNG<br>CHI PHÍ TIẾT KIỆM NHẤT',
-    desc: 'Lựa chọn phổ thông, chi phí thấp nhất — 18 đến 22 triệu, bảo hành 3 năm. Mang lại sự an tâm tuyệt đối bảo vệ lớp sơn zin nguyên bản cho xe gia đình và chạy phố.',
+    desc: 'Lựa chọn phổ thông, chi phí thấp nhất — từ 18.000.000đ đến 22.000.000đ, bảo hành 3 năm. Mang lại sự an tâm tuyệt đối bảo vệ lớp sơn zin nguyên bản cho xe gia đình và chạy phố.',
     packages: [
       {
         id: 'felix-tpu-75',
