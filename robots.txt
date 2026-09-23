@@ -1,4 +1,4 @@
-﻿User-agent: *
+User-agent: *
 Allow: /
 
 # Mở cửa cho các AI Bot phục vụ tìm kiếm thế hệ mới (GEO Standard)
@@ -20,4 +20,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://storedetailing.vn/dan-phim-cach-nhiet/sitemap.xml
+Sitemap: https://ppf.storedetailing.vn/dan-ppf-o-to-tphcm/sitemap.xml

@@ -315,11 +315,11 @@ export function initQuoteForm() {
       }
       const finalName = nameVal || 'Khách hàng';
       const finalCar = carVal || lastViewedCarType || 'Chưa cung cấp';
-      const finalPackage = packageVal || 'Tư vấn tổng quan theo xe';
-      const finalSource = packageVal ? `Form Báo Giá (Chọn: ${packageVal})` : 'Form Hero Ưu Đãi 20%';
+      const finalPackage = packageVal || 'Tư vấn dán PPF theo xe';
+      const finalSource = packageVal ? `Form Báo Giá PPF (Chọn: ${packageVal})` : 'Form Hero PPF Ưu Đãi';
       const isDuplicate = isRecentDuplicate(phoneVal);
       const origin = window.location.origin;
-      const base = (import.meta.env.BASE_URL || '/dan-pcn-o-to-tphcm/').replace(/\/?$/, '/');
+      const base = (import.meta.env.BASE_URL || '/dan-ppf-o-to-tphcm/').replace(/\/?$/, '/');
       const search = window.location.search || '';
       const targetUrl = `${origin}${base}cam-on/${search}`;
       if (isDuplicate) {
@@ -478,9 +478,9 @@ export function initQuoteForm() {
         name: finalName,
         phone: phoneVal,
         car: finalCar,
-        package: 'Tư vấn chi tiết',
+        package: 'Tư vấn dán PPF xe',
         viewed_all: true,
-        source: 'Form chân trang',
+        source: 'Form PPF chân trang',
       });
       if (!res.ok) {
         if (submitBtn) {

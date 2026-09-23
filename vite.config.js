@@ -5,9 +5,9 @@ import path from 'node:path';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  // Slug đường dẫn con cho landing page (tránh trùng với trang chủ / root domain)
-  // Ví dụ: pcn.storedetailing.vn/dan-pcn-o-to-tphcm/
-  const base = env.VITE_BASE_PATH || '/dan-pcn-o-to-tphcm/';
+  // Slug đường dẫn con cho landing page PPF Store Detailing
+  // Ví dụ: ppf.storedetailing.vn/dan-ppf-o-to-tphcm/
+  const base = env.VITE_BASE_PATH || '/dan-ppf-o-to-tphcm/';
 
   return {
     base,
@@ -19,21 +19,21 @@ export default defineConfig(({ mode }) => {
           server.middlewares.use((req, res, next) => {
             const url = req.url || '';
             const [pathname, search] = url.split('?');
-            if (pathname === '/dan-pcn-o-to-tphcm') {
+            if (pathname === '/dan-ppf-o-to-tphcm' || pathname === '/dan-pcn-o-to-tphcm') {
               res.statusCode = 301;
-              res.setHeader('Location', '/dan-pcn-o-to-tphcm/' + (search ? `?${search}` : ''));
+              res.setHeader('Location', '/dan-ppf-o-to-tphcm/' + (search ? `?${search}` : ''));
               res.end();
               return;
             }
             if (pathname === '/cam-on' || pathname === '/cam-on/') {
               res.statusCode = 301;
-              res.setHeader('Location', '/dan-pcn-o-to-tphcm/cam-on/' + (search ? `?${search}` : ''));
+              res.setHeader('Location', '/dan-ppf-o-to-tphcm/cam-on/' + (search ? `?${search}` : ''));
               res.end();
               return;
             }
-            if (pathname === '/dan-pcn-o-to-tphcm/cam-on') {
+            if (pathname === '/dan-ppf-o-to-tphcm/cam-on' || pathname === '/dan-pcn-o-to-tphcm/cam-on') {
               res.statusCode = 301;
-              res.setHeader('Location', '/dan-pcn-o-to-tphcm/cam-on/' + (search ? `?${search}` : ''));
+              res.setHeader('Location', '/dan-ppf-o-to-tphcm/cam-on/' + (search ? `?${search}` : ''));
               res.end();
               return;
             }
@@ -44,21 +44,21 @@ export default defineConfig(({ mode }) => {
           server.middlewares.use((req, res, next) => {
             const url = req.url || '';
             const [pathname, search] = url.split('?');
-            if (pathname === '/dan-pcn-o-to-tphcm') {
+            if (pathname === '/dan-ppf-o-to-tphcm' || pathname === '/dan-pcn-o-to-tphcm') {
               res.statusCode = 301;
-              res.setHeader('Location', '/dan-pcn-o-to-tphcm/' + (search ? `?${search}` : ''));
+              res.setHeader('Location', '/dan-ppf-o-to-tphcm/' + (search ? `?${search}` : ''));
               res.end();
               return;
             }
             if (pathname === '/cam-on' || pathname === '/cam-on/') {
               res.statusCode = 301;
-              res.setHeader('Location', '/dan-pcn-o-to-tphcm/cam-on/' + (search ? `?${search}` : ''));
+              res.setHeader('Location', '/dan-ppf-o-to-tphcm/cam-on/' + (search ? `?${search}` : ''));
               res.end();
               return;
             }
-            if (pathname === '/dan-pcn-o-to-tphcm/cam-on') {
+            if (pathname === '/dan-ppf-o-to-tphcm/cam-on' || pathname === '/dan-pcn-o-to-tphcm/cam-on') {
               res.statusCode = 301;
-              res.setHeader('Location', '/dan-pcn-o-to-tphcm/cam-on/' + (search ? `?${search}` : ''));
+              res.setHeader('Location', '/dan-ppf-o-to-tphcm/cam-on/' + (search ? `?${search}` : ''));
               res.end();
               return;
             }
@@ -88,7 +88,7 @@ export default defineConfig(({ mode }) => {
         name: 'copy-subpath-index',
         closeBundle() {
           const distDir = path.resolve(process.cwd(), 'dist');
-          const subDir = path.resolve(distDir, 'dan-pcn-o-to-tphcm');
+          const subDir = path.resolve(distDir, 'dan-ppf-o-to-tphcm');
           if (fs.existsSync(distDir)) {
             fs.mkdirSync(subDir, { recursive: true });
             const indexPath = path.join(distDir, 'index.html');
@@ -96,7 +96,7 @@ export default defineConfig(({ mode }) => {
               fs.copyFileSync(indexPath, path.join(subDir, 'index.html'));
               fs.writeFileSync(
                 indexPath,
-                '<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><title>Store Detailing</title><meta http-equiv="refresh" content="0;url=/dan-pcn-o-to-tphcm/"><script>location.replace(\'/dan-pcn-o-to-tphcm/\'+location.search+location.hash);</script></head><body></body></html>'
+                '<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><title>Store Detailing</title><meta http-equiv="refresh" content="0;url=/dan-ppf-o-to-tphcm/"><script>location.replace(\'/dan-ppf-o-to-tphcm/\'+location.search+location.hash);</script></head><body></body></html>'
               );
             }
             const camonDistDir = path.join(distDir, 'cam-on');
@@ -108,7 +108,7 @@ export default defineConfig(({ mode }) => {
                 fs.copyFileSync(camonIndex, path.join(camonSubDir, 'index.html'));
                 fs.writeFileSync(
                   camonIndex,
-                  '<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><title>Store Detailing</title><meta http-equiv="refresh" content="0;url=/dan-pcn-o-to-tphcm/cam-on/"><script>location.replace(\'/dan-pcn-o-to-tphcm/cam-on/\'+location.search+location.hash);</script></head><body></body></html>'
+                  '<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><title>Store Detailing</title><meta http-equiv="refresh" content="0;url=/dan-ppf-o-to-tphcm/cam-on/"><script>location.replace(\'/dan-ppf-o-to-tphcm/cam-on/\'+location.search+location.hash);</script></head><body></body></html>'
                 );
               }
             }

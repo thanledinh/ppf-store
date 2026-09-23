@@ -2,41 +2,51 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/dan-pcn-o-to-tphcm/",
+      "destination": "/dan-ppf-o-to-tphcm/",
       "permanent": false
     },
     {
+      "source": "/dan-ppf-o-to-tphcm",
+      "destination": "/dan-ppf-o-to-tphcm/",
+      "permanent": true
+    },
+    {
       "source": "/dan-pcn-o-to-tphcm",
-      "destination": "/dan-pcn-o-to-tphcm/",
+      "destination": "/dan-ppf-o-to-tphcm/",
+      "permanent": true
+    },
+    {
+      "source": "/dan-pcn-o-to-tphcm/:path*",
+      "destination": "/dan-ppf-o-to-tphcm/:path*",
       "permanent": true
     },
     {
       "source": "/cam-on",
-      "destination": "/dan-pcn-o-to-tphcm/cam-on/",
+      "destination": "/dan-ppf-o-to-tphcm/cam-on/",
       "permanent": false
     },
     {
       "source": "/cam-on/",
-      "destination": "/dan-pcn-o-to-tphcm/cam-on/",
+      "destination": "/dan-ppf-o-to-tphcm/cam-on/",
       "permanent": false
     },
     {
-      "source": "/dan-pcn-o-to-tphcm/cam-on",
-      "destination": "/dan-pcn-o-to-tphcm/cam-on/",
+      "source": "/dan-ppf-o-to-tphcm/cam-on",
+      "destination": "/dan-ppf-o-to-tphcm/cam-on/",
       "permanent": true
     }
   ],
   "rewrites": [
     {
-      "source": "/dan-pcn-o-to-tphcm/cam-on/",
+      "source": "/dan-ppf-o-to-tphcm/cam-on/",
       "destination": "/cam-on/index.html"
     },
     {
-      "source": "/dan-pcn-o-to-tphcm/",
+      "source": "/dan-ppf-o-to-tphcm/",
       "destination": "/index.html"
     },
     {
-      "source": "/dan-pcn-o-to-tphcm/:path*",
+      "source": "/dan-ppf-o-to-tphcm/:path*",
       "destination": "/:path*"
     }
   ]

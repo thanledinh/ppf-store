@@ -4,19 +4,19 @@ export default {
     const pathname = url.pathname;
 
     if (pathname === '/' || pathname === '') {
-      return Response.redirect(`${url.origin}/dan-pcn-o-to-tphcm/`, 302);
+      return Response.redirect(`${url.origin}/dan-ppf-o-to-tphcm/`, 302);
     }
-    if (pathname === '/dan-pcn-o-to-tphcm') {
-      return Response.redirect(`${url.origin}/dan-pcn-o-to-tphcm/`, 301);
+    if (pathname === '/dan-ppf-o-to-tphcm' || pathname === '/dan-pcn-o-to-tphcm') {
+      return Response.redirect(`${url.origin}/dan-ppf-o-to-tphcm/`, 301);
     }
     if (pathname === '/cam-on' || pathname === '/cam-on/') {
-      return Response.redirect(`${url.origin}/dan-pcn-o-to-tphcm/cam-on/`, 301);
+      return Response.redirect(`${url.origin}/dan-ppf-o-to-tphcm/cam-on/`, 301);
     }
-    if (pathname === '/dan-pcn-o-to-tphcm/cam-on') {
-      return Response.redirect(`${url.origin}/dan-pcn-o-to-tphcm/cam-on/`, 301);
+    if (pathname === '/dan-ppf-o-to-tphcm/cam-on' || pathname === '/dan-pcn-o-to-tphcm/cam-on') {
+      return Response.redirect(`${url.origin}/dan-ppf-o-to-tphcm/cam-on/`, 301);
     }
 
-    if (pathname.startsWith('/dan-pcn-o-to-tphcm/')) {
+    if (pathname.startsWith('/dan-ppf-o-to-tphcm/')) {
       const subPath = pathname.slice(19);
       if (subPath === '/' || subPath === '') {
         url.pathname = '/index.html';
