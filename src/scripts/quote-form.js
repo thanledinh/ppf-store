@@ -1,6 +1,6 @@
 export const GOOGLE_SCRIPT_URL =
   import.meta.env.VITE_GOOGLE_SCRIPT_URL ||
-  'https://script.google.com/macros/s/AKfycbz_VirxF_3ci3gd9wCay9VQm9k7YNCBeOYroyy65OJZkdBaFSWAfzPbILiKPR5kvhwX2g/exec';
+  'https://script.google.com/macros/s/AKfycbx5lbXr4AwTOHJ5WMKAFpzejmurMba0q9CFGcsJhWmrCVkxqIzuuRIL5fPofKwTM7cL2A/exec';
 const pageLoadTimestamp = Date.now();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 const MAX_SUBMISSIONS_PER_MINUTE = 5;
